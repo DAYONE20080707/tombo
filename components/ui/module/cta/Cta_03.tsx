@@ -11,7 +11,7 @@ import MoreLinkButton from "../../button/MoreButton"
 const Cta_03 = () => {
   return (
     <>
-      <SectionContent className="!py-0 !px-0 " variant="dot">
+      <SectionContent className="!py-0 !px-0 ">
         <section className="mx-auto grid md:grid-cols-2 rounded-t-[40px] overflow-hidden">
           <div className="text-white text-center bg-accentColor py-10 md:py-16 px-5">
             <p className="md:text-lg font-semibold mb-1">事業紹介</p>

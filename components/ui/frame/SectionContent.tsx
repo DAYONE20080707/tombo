@@ -1,14 +1,14 @@
 // components/ui/frame/SectionContent.tsx
 
-import React, { ReactNode } from "react"
-import classNames from "classnames"
+import React, { ReactNode } from "react";
+import classNames from "classnames";
 
 interface SectionContentProps {
-  children: ReactNode
-  className?: string
-  style?: React.CSSProperties
-  variant?: "default" | "dot" | "light"
-  id?: string
+  children: ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+  variant?: "default" | "dot" | "light";
+  id?: string;
 }
 
 const SectionContent: React.FC<SectionContentProps> = ({
@@ -28,16 +28,16 @@ const SectionContent: React.FC<SectionContentProps> = ({
         backgroundPosition: "0 0, 5px 10px",
         backgroundSize: "10px 20px",
         ...style,
-      }
+      };
     }
     if (variant === "light") {
       return {
         backgroundColor: "#f7fcff",
         ...style,
-      }
+      };
     }
-    return style
-  }
+    return style;
+  };
 
   return (
     <div
@@ -50,7 +50,7 @@ const SectionContent: React.FC<SectionContentProps> = ({
     >
       {children}
     </div>
-  )
-}
+  );
+};
 
-export default SectionContent
+export default SectionContent;
