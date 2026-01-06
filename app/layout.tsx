@@ -46,7 +46,7 @@ interface RootLayoutProps {
 const RootLayout = async ({ children }: RootLayoutProps) => {
   return (
     <html lang="ja">
-      <body className={`font-notoSansJP text-baseColor ${lato.variable}`}>
+      <body className={`bg-baseColor font-notoSansJP text-white ${lato.variable}`}>
         <GoogleTagManager gtmId="GTM-XYZ" />
         <ToastProvider />
         {children}
