@@ -84,7 +84,7 @@ const Case_01 = ({ limit = 3 }: CaseProps) => {
             <p className="text-baseColor">記事がありません</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 md:gap-x-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-x-10">
             {contents.map((post) => (
               <div key={post.id} className="w-full">
                 <div className="w-full h-[250px] mt-5 md:mt-0 rounded-t-2xl">
@@ -99,7 +99,7 @@ const Case_01 = ({ limit = 3 }: CaseProps) => {
                   )}
                 </div>
                 <div className="mt-6">
-                  <p className="text-lg font-bold break-words min-h-14">
+                  <p className="text-lg font-bold break-words md:min-h-14">
                     {post.title}
                   </p>
                   <p className="mt-2 text-[#5f5f5f] text-xs">

@@ -57,10 +57,16 @@ const Header_05 = () => {
             {/* ロゴ */}
             <Link href="/" className="w-[84px] md:w-[84px]">
               <div className="text-lg font-bold ">
-                {CompanyInfo[0].companyName("primary")}
+                {isScrolled
+                  ? CompanyInfo[0].companyName("tertiary")
+                  : CompanyInfo[0].companyName("primary")}
               </div>
             </Link>
-            <ul className="hidden md:flex items-center gap-10 font-en tracking-[0.03em] text-white">
+            <ul
+              className={`hidden md:flex items-center gap-10 font-en tracking-[0.03em] ${
+                isScrolled ? "text-baseColor" : "text-white"
+              }`}
+            >
               {filteredMenu.map((item, index) => (
                 <li key={index}>
                   <Link href={item.href}>
@@ -160,8 +166,11 @@ const Header_05 = () => {
               ))}
             </div> */}
             {/* ContactButton */}
-            <li>
-              <ContactButton className="w-full py-4 font-normal" />
+            <li className="space-y-4">
+              <ContactButton className="w-full py-4 font-normal" >お問い合わせ</ContactButton>
+              <ContactButtonCorporate className="">
+                法人のお客様
+              </ContactButtonCorporate>
             </li>
           </ul>
         </div>

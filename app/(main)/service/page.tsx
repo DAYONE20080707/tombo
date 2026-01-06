@@ -15,21 +15,28 @@ import Service2_03 from "@/components/service/service2/Service_03";
 import Service3_01 from "@/components/service/service3/Service_01";
 import Service3_02 from "@/components/service/service3/Service_02";
 import Service3_03 from "@/components/service/service3/Service_03";
-import Cta_01 from "@/components/ui/module/cta/Cta_01";
-import Cta_02 from "@/components/ui/module/cta/Cta_02";
+import Breadcrumb from "@/components/ui/module/Breadcrumb";
 import Cta_03 from "@/components/ui/module/cta/Cta_03";
 
 // 事業内容
 const ServicePage = () => {
   return (
     <div>
-      <Lowerkv_01 />
+      <div className=" md:max-w-[1240px] mx-auto pt-[60px] md:pt-[120px] px-5">
+        <Breadcrumb mainTitle="人事コンサルティング" />
+      </div>
+      <div className="mt-10 md:mt-[120px]">
+        <Lowerkv_04
+          enTitle="人事コンサルティング"
+          mainTitle="HR consulting"
+          imageSrc="/common/lowerkv_service.jpg"
+        />
+      </div>
       <About_01 />
-      <Cta_01 />
       <Service1_01/>
       <Service2_01/>
       <Service3_01/>
-      <Cta_01 />
+      <Cta_03 />
     </div>
   );
 };

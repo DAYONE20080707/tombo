@@ -32,7 +32,7 @@ const KeyVisual_04 = () => {
               徹底的に向き合う。
             </>
           }
-          className="w-fit text-white absolute left-1/2  transform -translate-x-1/2 top-1/2 -translate-y-1/2 px-5"
+          className="w-full md:w-fit text-white absolute left-1/2  transform -translate-x-1/2 top-1/2 -translate-y-1/2 px-5"
         />
         <div className="absolute left-1/2  transform -translate-x-1/2 bottom-4 md:bottom-20">
           <ScrollButton onClick={scrollToNextSection} color="white" />

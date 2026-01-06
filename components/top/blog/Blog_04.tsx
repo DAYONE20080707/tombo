@@ -93,9 +93,9 @@ const Blog_04 = ({ limit = 6 }: BlogProps) => {
               {contents.map((post) => (
                 <div
                   key={post.id}
-                  className="w-full flex space-x-4 border-b border-white py-4"
+                  className="w-full flex flex-col md:flex-row gap-4 border-b border-white py-4"
                 >
-                  <div className="w-[180px] h-[130px] flex-shrink-0">
+                  <div className="md:w-[180px] md:h-[130px] flex-shrink-0">
                     {post.image && (
                       <Image
                         src={post.image.url}

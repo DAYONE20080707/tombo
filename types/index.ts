@@ -66,6 +66,13 @@ export interface ContentHeadlineProps extends FrameProps {
   subTitleClassName?: string // h2用のclassName
 }
 
+export interface PageHeadlineProps extends FrameProps {
+  mainTitle: React.ReactNode
+  subTitle?: React.ReactNode
+  enTitle?: string
+  titleClassName?: string
+  enTitleClassName?: string
+}
 export interface ButtonProps {
   children: React.ReactNode // ボタンの中身（テキストや要素など）
   className?: string // オプショナルなクラス名

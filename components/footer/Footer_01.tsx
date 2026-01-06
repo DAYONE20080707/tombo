@@ -19,7 +19,7 @@ const Footer_01 = () => {
         <div className="md:flex justify-between items-center">
           <div className="">
             <h4 className="w-[168px]">
-              {CompanyInfo[0].companyName("tertiary")}
+              {CompanyInfo[0].companyName("primary")}
             </h4>
             <p className="mt-10">{companyNameText}</p>
             <p className="mt-2">〒{companyPostalCode}　{companyAddress}</p>
@@ -34,7 +34,7 @@ const Footer_01 = () => {
                 </li>
               ))}
             </ul>
-            <div className="mt-7 flex gap-2">
+            <div className="mt-7 flex flex-col md:flex-row gap-2">
               <ContactButton className="">個人のお客様</ContactButton>
               <ContactButtonCorporate className="">法人のお客様</ContactButtonCorporate>
             </div>

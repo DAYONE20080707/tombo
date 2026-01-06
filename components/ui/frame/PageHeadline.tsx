@@ -1,70 +1,67 @@
 // components/ui/frame/PageHeadline.tsx
-import classNames from "classnames";
-import Breadcrumb from "../module/Breadcrumb";
-
-interface PageHeadlineProps {
-  mainTitle: React.ReactNode;
-  subtitleTop?: React.ReactNode;
-  subtitleBottom?: string;
-  discription?: React.ReactNode;
-  parentDirectoryName?: string;
-  parentDirectoryLink?: string;
-  className?: string; // 親要素のclassName
-  titleClassName?: string; // h1用のclassName
-  subtitleClassName?: string; // h2用のclassName
-  discriptionClassName?: string; // p用のclassName
-}
+import React from "react"
+import classNames from "classnames"
+import { PageHeadlineProps } from "@/types"
+import Image from "next/image"
 
 const PageHeadline: React.FC<PageHeadlineProps> = ({
   mainTitle,
-  subtitleTop,
-  subtitleBottom,
-  discription,
-  parentDirectoryName,
-  parentDirectoryLink,
+  subTitle,
+  enTitle,
   className = "",
   titleClassName = "",
-  subtitleClassName = "",
-  discriptionClassName = "",
+  enTitleClassName = "",
+  ImageSrc,
+  ImageWidth,
+  ImageHeight,
+  id,
 }) => {
+  // 文字列内の\nを<br />に変換する関数
+  const convertNewLines = (text: string) => {
+    return text.split("\\n").map((line, i) => (
+      <span key={i}>
+        {line}
+        {i !== text.split("\\n").length - 1 && <br />}
+      </span>
+    ))
+  }
   return (
-    <section className={classNames("md:max-w-[1200px]", className)}>
-      <Breadcrumb
-        mainTitle={mainTitle}
-        parentDirectoryName={parentDirectoryName}
-        parentDirectoryLink={parentDirectoryLink}
-      />
-      <h2
+    <section
+      id={id}
+      className={classNames(
+        "w-full md:max-w-[1200px] md:mb-16 tracking-wide",
+        className
+      )}
+    >
+      {ImageSrc && (
+        <Image
+          src={ImageSrc}
+          width={ImageWidth}
+          height={ImageHeight}
+          alt={String(mainTitle)}
+          className="mb-4"
+        />
+      )}
+      <p
         className={classNames(
-          "text-2xl font-extrabold mb-4 font-poppins",
-          subtitleClassName
+          "text-sm md:text-lg font-semibold tracking-[0.03em] text-accentColor",
+          enTitleClassName
         )}
       >
-        {subtitleTop}
-      </h2>
+        {enTitle}
+      </p>
       <h1
         className={classNames(
-          "font-extrabold text-[80px] leading-[88px] font-poppins tracking-[4px]",
+          "text-2xl md:text-[64px] leading-[150%] tracking-[0.05em] text-white font-extrabold font-en",
           titleClassName
         )}
       >
-        {mainTitle}
+        {typeof mainTitle === "string" ? convertNewLines(mainTitle) : mainTitle}
       </h1>
-      <h2
-        className={classNames("text-xl font-semibold mt-4", subtitleClassName)}
-      >
-        {subtitleBottom}
-      </h2>
-      <p
-        className={classNames(
-          "font-semibold mt-4 text-lg",
-          discriptionClassName
-        )}
-      >
-        {discription}
-      </p>
-    </section>
-  );
-};
 
-export default PageHeadline;
+      {subTitle && <h2>{subTitle}</h2>}
+    </section>
+  )
+}
+
+export default PageHeadline

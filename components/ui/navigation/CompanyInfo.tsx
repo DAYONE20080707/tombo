@@ -9,7 +9,7 @@ export const CompanyInfo = [
             ? "/common/logo.png" // 1つ目のロゴパス（白色ロゴ）
             : type === "secondary"
             ? "/common/logo_square.png" // 2つ目のロゴパス（黒色ロゴ）
-            : "/common/logo.png" // 3つ目のロゴパス（テキストなし）
+            : "/common/logo_black.png" // 3つ目のロゴパス（テキストなし）
         }
         alt="logo"
         width={200} // 適切な幅を指定

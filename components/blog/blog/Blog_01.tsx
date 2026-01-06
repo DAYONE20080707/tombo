@@ -124,7 +124,7 @@ const Blog_01 = ({ limit = 3 }: BlogProps) => {
                       )}
                     </div>
                     <div className="bg-white p-6">
-                      <p className="text-lg font-bold break-words min-h-14">
+                      <p className="text-lg font-bold break-words md:min-h-14">
                         {post.title}
                       </p>
                       <p className="mt-2 text-base line-clamp-2">
