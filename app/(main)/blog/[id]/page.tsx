@@ -1,5 +1,4 @@
-import { componentsConfig } from "@/lib/componentsConfig"
-import React from "react"
+import BlogDetail_01 from "@/components/blog/blogDetail/BlogDetail_01"
 
 interface BlogDetailPageProps {
   params: Promise<{ id: string }>
@@ -8,15 +7,7 @@ interface BlogDetailPageProps {
 const BlogDetailPage = async ({ params }: BlogDetailPageProps) => {
   const { id } = await params
 
-  const sections = componentsConfig.BlogDetail.sections
-  const defaultTemplate = sections.blogDetail.options[1].id
-  const Component = sections.blogDetail.components[defaultTemplate]
-
-  return Component
-    ? React.cloneElement(Component as React.ReactElement, {
-        params: { id },
-      })
-    : null
+  return <BlogDetail_01 params={{ id }} />
 }
 
 export default BlogDetailPage
