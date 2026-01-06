@@ -21,10 +21,8 @@ const Service_03 = () => {
       <SectionContent>
         <section className="md:max-w-[1200px] mx-auto space-y-10 ">
           <ContentHeadline
-            subTitle="Service"
-            mainTitle="事業内容"
-            subTitleClassName="text-center"
-            titleClassName="text-center"
+            subTitle="事業内容"
+            mainTitle="Our Service"
           />
 
           <div className="grid gris-cols-1 md:grid-cols-2 gap-10">
@@ -41,12 +39,12 @@ const Service_03 = () => {
               />
             ))}
           </div>
-          <div className="flex justify-center">
+          {/* <div className="flex justify-center">
             <MoreLinkButton
               href="/"
               className=" text-accentColor border-accentColor"
             />
-          </div>
+          </div> */}
         </section>
       </SectionContent>
     </>

@@ -17,7 +17,7 @@ interface BlogProps {
   limit?: number;
 }
 
-const Blog_04 = ({ limit = 3 }: BlogProps) => {
+const Blog_04 = ({ limit = 6 }: BlogProps) => {
   const [contents, setContents] = useState<Cms[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -63,48 +63,83 @@ const Blog_04 = ({ limit = 3 }: BlogProps) => {
     };
   }, [limit]);
 
-  if (loading) return <h1>Loading...</h1>;
-  if (!contents || contents.length === 0) return <h1>No contents</h1>;
-
   return (
     <SectionContent>
-      <section className="md:max-w-[1200px] mx-auto md:flex justify-between ">
-        <div className="md:w-[300px]">
-          <ContentHeadline subTitle="Blog" mainTitle="ブログ" />
-          <div className="mt-10 md:mt-16 flex justify-center">
-            <MoreButton className="text-accentColor border-accentColor" />
+      <section className="md:max-w-[1200px] mx-auto">
+        <div className="">
+          <ContentHeadline subTitle="ブログ" mainTitle="Blog" />
+        </div>
+        {loading ? (
+          <div className="mt-10 md:mt-0 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            {[...Array(6)].map((_, index) => (
+              <div key={index} className="w-full flex space-x-4">
+                <div className="w-[120px] h-[120px] flex-shrink-0 bg-gray-200 rounded-lg animate-pulse"></div>
+                <div className="flex-1 flex flex-col">
+                  <div className="h-4 bg-gray-200 rounded animate-pulse mb-2 w-20 ml-auto"></div>
+                  <div className="h-5 bg-gray-200 rounded animate-pulse mb-2 w-24"></div>
+                  <div className="h-5 bg-gray-200 rounded animate-pulse mb-1 w-full"></div>
+                  <div className="h-4 bg-gray-200 rounded animate-pulse w-3/4"></div>
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
-        <div className="mt-10 md:mt-0 md:w-[820px] grid grid-cols-1 gap-y-5 md:gap-y-10 gap-x-10 md:gap-x-16">
-          {contents.map((post) => (
-            <div key={post.id} className="w-full md:flex space-x-6">
-              <div className="w-full md:w-[180px] h-[250px] md:h-[130px] mt-5 md:mt-0">
-                {post.image && (
-                  <Image
-                    src={post.image.url}
-                    alt={post.title ?? "ブログサムネイル"}
-                    width={370}
-                    height={223}
-                    className="w-full h-full rounded-2xl object-cover"
-                  />
-                )}
-              </div>
-              <div className="mt-6">
-                <p className="text-lg font-bold">{post.title}</p>
-                <p className="mt-2 text-[#5f5f5f] text-xs">
-                  {post.description}
-                </p>
-                <Link
-                  href="/"
-                  className="mt-6 flex items-center text-accentColor font-semibold"
+        ) : !contents || contents.length === 0 ? (
+          <div className="mt-10 md:mt-0 flex items-center justify-center py-16">
+            <p className="text-baseColor">記事がありません</p>
+          </div>
+        ) : (
+          <>
+            <div className="mt-10 md:mt-0 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+              {contents.map((post) => (
+                <div
+                  key={post.id}
+                  className="w-full flex space-x-4 border-b border-white py-4"
                 >
-                  もっと見る
-                  <ChevronRightIcon className="ml-1 w-4 h-6" />
-                </Link>
-              </div>
+                  <div className="w-[180px] h-[130px] flex-shrink-0">
+                    {post.image && (
+                      <Image
+                        src={post.image.url}
+                        alt={post.title ?? "ブログサムネイル"}
+                        width={180}
+                        height={130}
+                        className="w-full h-full rounded-[15px] object-cover"
+                      />
+                    )}
+                  </div>
+                  <div className="flex-1 flex flex-col">
+                    <p className="text-white text-xs mb-2">
+                      {post.date
+                        ? new Date(post.date)
+                            .toLocaleDateString("ja-JP", {
+                              year: "numeric",
+                              month: "2-digit",
+                              day: "2-digit",
+                            })
+                            .replace(/\//g, ".")
+                        : ""}
+                    </p>
+                    {post.category && post.category.length > 0 && (
+                      <div className="mb-4">
+                        <span className="border border-accentColor text-accentColor text-xs px-3 py-1 rounded-full">
+                          {post.category[0]}
+                        </span>
+                      </div>
+                    )}
+                    <p className="text-white text-base md:text-lg font-normal line-clamp-2 leading-[160%]">
+                      {post.title}
+                    </p>
+                    {/* <p className="text-white text-xs line-clamp-2">
+                      {post.description}
+                    </p> */}
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+            <div className="mt-10 md:mt-16 flex justify-center">
+              <MoreButton href="/blog" className="text-accentColor border-accentColor" />
+            </div>
+          </>
+        )}
       </section>
     </SectionContent>
   );
