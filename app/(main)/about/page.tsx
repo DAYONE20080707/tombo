@@ -1,7 +1,3 @@
-import Lowerkv_01 from "@/components/lowerkv/Lowerkv_01"
-import Lowerkv_02 from "@/components/lowerkv/Lowerkv_02"
-import Lowerkv_03 from "@/components/lowerkv/Lowerkv_03"
-import Lowerkv_04 from "@/components/lowerkv/Lowerkv_04"
 import About_01 from "@/components/about/about/About_01"
 import About_02 from "@/components/about/about/About_02"
 import About_03 from "@/components/about/about/About_03"
@@ -21,7 +17,6 @@ import Profile_04 from "@/components/top/profile/Profile_04"
 const AboutPage = () => {
   return (
     <div>
-      <Lowerkv_01 />
       <About_01 />
       <Purpose_01 />
       <History_01 />

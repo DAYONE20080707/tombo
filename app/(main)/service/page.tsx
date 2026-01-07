@@ -19,7 +19,7 @@ const ServicePage = () => {
         />
       </div>
       <About_01 />
-      <Service_01/>
+      <Service_01 />
       <Cta_03 />
     </div>
   );
