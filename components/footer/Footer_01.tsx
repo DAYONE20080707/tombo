@@ -22,7 +22,7 @@ const Footer_01 = () => {
               {CompanyInfo[0].companyName("primary")}
             </h4>
             <p className="mt-10">{companyNameText}</p>
-            <p className="mt-2">〒{companyPostalCode}　{companyAddress}</p>
+            <p className="mt-2">〒{companyPostalCode}　<br className="md:hidden"/>{companyAddress}</p>
           </div>
           <div className="flex flex-col md:items-end mt-5 md:mt-0">
             <ul className="md:flex items-center md:space-x-10 font-light space-y-5 md:space-y-0">
