@@ -21,5 +21,3 @@ const CorporateContactPage = () => {
 };
 
 export default CorporateContactPage;
-
-
