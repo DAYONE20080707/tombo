@@ -1,4 +1,5 @@
 import BlogDetail_01 from "@/components/blog/blogDetail/BlogDetail_01"
+import BlogDetail_02 from "@/components/blog/blogDetail/BlogDetail_02"
 
 interface BlogDetailPageProps {
   params: Promise<{ id: string }>

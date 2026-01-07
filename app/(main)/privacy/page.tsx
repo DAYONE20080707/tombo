@@ -7,7 +7,7 @@ const PrivacyPage = () => {
   return (
     <div>
       <div className=" md:max-w-[1240px] mx-auto pt-[100px] md:pt-[150px] px-5">
-        <Breadcrumb mainTitle="お問い合わせ" />
+        <Breadcrumb mainTitle="プライバシーポリシー" />
         <div className="mt-10 md:mt-[120px]">
           <PageHeadline enTitle="プライバシーポリシー" mainTitle="Privacy policy" />
         </div>

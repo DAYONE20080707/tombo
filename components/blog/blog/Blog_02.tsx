@@ -1,81 +1,97 @@
 // components/blog/Blog_02.tsx
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { Cms } from "@/types"
-import PageContent from "@/components/ui/frame/PageContent"
-import MoreButton from "@/components/ui/button/MoreButton"
-import { blogsFetch } from "@/lib/api/blogsFetch"
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Cms } from "@/types";
+import PageContent from "@/components/ui/frame/PageContent";
+import MoreButton from "@/components/ui/button/MoreButton";
+import MoreButtonClick from "@/components/ui/button/MoreButtonClick";
+import { blogsFetch } from "@/lib/api/blogsFetch";
+import SectionContent from "@/components/ui/frame/SectionContent";
 
 interface BlogProps {
-  limit?: number
+  limit?: number;
 }
 
 const Blog_02 = ({ limit = 3 }: BlogProps) => {
-  const [allContents, setAllContents] = useState<Cms[]>([])
-  const [displayContents, setDisplayContents] = useState<Cms[]>([])
+  const [allContents, setAllContents] = useState<Cms[]>([]);
+  const [displayContents, setDisplayContents] = useState<Cms[]>([]);
+  const [filteredContents, setFilteredContents] = useState<Cms[]>([]);
   const [categories, setCategories] = useState<{ id: string; name: string }[]>(
     []
-  )
-  const [loading, setLoading] = useState(true)
-  const [activeCategory, setActiveCategory] = useState("all")
+  );
+  const [loading, setLoading] = useState(true);
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [displayCount, setDisplayCount] = useState(10);
 
   // 全件取得 & カテゴリ一覧生成
   useEffect(() => {
-    let mounted = true
-    ;(async () => {
+    let mounted = true;
+    (async () => {
       try {
-        setLoading(true)
-        const data = await blogsFetch.list(100) // 全件取得
-        if (!mounted) return
-        setAllContents(data)
+        setLoading(true);
+        const data = await blogsFetch.list(100); // 全件取得
+        if (!mounted) return;
+        setAllContents(data);
 
         // 重複なしカテゴリ抽出
-        const uniqueCats = new Set<string>()
+        const uniqueCats = new Set<string>();
         data.forEach((post) => {
-          post.category?.forEach((c) => uniqueCats.add(c))
-        })
+          post.category?.forEach((c) => uniqueCats.add(c));
+        });
 
         setCategories([
           { id: "all", name: "すべて" },
           ...Array.from(uniqueCats).map((c) => ({ id: c, name: c })),
-        ])
+        ]);
 
-        setDisplayContents(data.slice(0, limit))
+        setFilteredContents(data);
+        setDisplayContents(data.slice(0, 10));
+        setDisplayCount(10);
       } catch (error) {
-        console.error("Failed to fetch blogs:", error)
+        console.error("Failed to fetch blogs:", error);
         if (mounted) {
-          setAllContents([])
-          setCategories([{ id: "all", name: "すべて" }])
+          setAllContents([]);
+          setCategories([{ id: "all", name: "すべて" }]);
         }
       } finally {
-        if (mounted) setLoading(false)
+        if (mounted) setLoading(false);
       }
-    })()
+    })();
     return () => {
-      mounted = false
-    }
-  }, [limit])
+      mounted = false;
+    };
+  }, [limit]);
 
   // カテゴリ変更時
   useEffect(() => {
+    let filtered: Cms[] = [];
     if (activeCategory === "all") {
-      setDisplayContents(allContents.slice(0, limit))
+      filtered = allContents;
     } else {
-      const filtered = allContents.filter((post) =>
+      filtered = allContents.filter((post) =>
         post.category?.includes(activeCategory)
-      )
-      setDisplayContents(filtered.slice(0, limit))
+      );
     }
-  }, [activeCategory, allContents, limit])
+    setFilteredContents(filtered);
+    setDisplayContents(filtered.slice(0, 10));
+    setDisplayCount(10);
+  }, [activeCategory, allContents]);
+
+  // もっと見るボタンのクリック処理
+  const handleLoadMore = () => {
+    const nextCount = displayCount + 10;
+    setDisplayCount(nextCount);
+    setDisplayContents(filteredContents.slice(0, nextCount));
+  };
 
   return (
-    <PageContent className="bg-bgLight">
+    <SectionContent className="!pt-0 text-baseColor">
       <section className="md:max-w-[1200px] mx-auto">
         {/* カテゴリボタン */}
-        <div className="flex flex-wrap justify-start md:justify-center gap-x-5 md:gap-20 rounded-full bg-white mx-auto px-5 md:px-20 w-fit">
+        <div className="flex flex-wrap justify-start md:justify-center gap-x-5 md:gap-x-20 rounded-full bg-white mx-auto px-5 md:px-20 w-fit">
           {categories.map((category) => (
             <button
               key={category.id}
@@ -101,14 +117,14 @@ const Blog_02 = ({ limit = 3 }: BlogProps) => {
           </div>
         ) : (
           <>
-            <div className="mt-16 grid grid-cols-1 gap-y-6 md:gap-y-6 gap-x-10 md:gap-x-16 bg-white p-16">
+            <div className="mt-16 grid grid-cols-1 gap-y-6 md:gap-y-6 gap-x-10 md:gap-x-16 bg-white p-16 rounded-[40px]">
               {displayContents.map((post) => (
                 <Link
                   key={post.id}
                   href={`/blog/${post.id}`}
                   className="w-full hover:opacity-90 transition-opacity"
                 >
-                  <div className="w-full md:flex space-x-6 pb-6 border-b border-[#EFEFEF] last:border-b-0">
+                  <div className="w-full md:flex space-x-6 pb-6 border-b border-[#636B7D]">
                     <div className="w-full md:w-[180px] h-[250px] md:h-[130px] mt-5 md:mt-0">
                       {post.image && (
                         <Image
@@ -121,7 +137,7 @@ const Blog_02 = ({ limit = 3 }: BlogProps) => {
                       )}
                     </div>
                     <div>
-                      <p className="mt-2 text-[#5f5f5f] text-[14px] font-lato font-semibold leading-[130%]">
+                      <p className="mt-2 text-[#5f5f5f] text-[14px] font-en font-extrabold leading-[130%]">
                         {post.date
                           ? new Date(post.date)
                               .toLocaleDateString("ja-JP", {
@@ -142,20 +158,24 @@ const Blog_02 = ({ limit = 3 }: BlogProps) => {
                           </span>
                         ))}
                       </div>
-                      <p className="mt-4 text-lg font-bold">{post.title}</p>
+                      <p className="mt-4 text-lg">{post.title}</p>
                     </div>
                   </div>
                 </Link>
               ))}
             </div>
-            <div className="flex justify-center mt-16">
-              <MoreButton className="text-accentColor border-accentColor" />
-            </div>
+            {filteredContents.length > displayCount && (
+              <div className="flex justify-center mt-16">
+                <MoreButtonClick onClick={handleLoadMore} variant="white">
+                  もっと見る
+                </MoreButtonClick>
+              </div>
+            )}
           </>
         )}
       </section>
-    </PageContent>
-  )
-}
+    </SectionContent>
+  );
+};
 
-export default Blog_02
+export default Blog_02;
