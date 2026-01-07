@@ -1,14 +1,13 @@
-import BlogDetail_01 from "@/components/blog/blogDetail/BlogDetail_01"
-import BlogDetail_02 from "@/components/blog/blogDetail/BlogDetail_02"
+import BlogDetail_01 from "@/components/blog/blogDetail/BlogDetail_01";
 
 interface BlogDetailPageProps {
-  params: Promise<{ id: string }>
+  params: Promise<{ id: string }>;
 }
 
 const BlogDetailPage = async ({ params }: BlogDetailPageProps) => {
-  const { id } = await params
+  const { id } = await params;
 
-  return <BlogDetail_01 params={{ id }} />
-}
+  return <BlogDetail_01 params={{ id }} />;
+};
 
-export default BlogDetailPage
+export default BlogDetailPage;
