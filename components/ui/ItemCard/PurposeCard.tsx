@@ -25,7 +25,7 @@ const PurposeCard = ({
   return (
     <li className="md:mt-16 md:flex justify-start md:space-x-20 border-b-2 pb-16">
       <div className="md:w-[400px] relative">
-        <h3 className="text-3xl md:text-5xl font-bold leading-relaxed md:leading-[64px] mt-10 md:mt-0 tracking-[0.03em] text-accentColor font-lato">
+        <h3 className="text-3xl md:text-5xl font-bold leading-relaxed md:leading-[64px] mt-10 md:mt-0 tracking-[0.03em] text-accentColor font-en">
           {formatText(title)}
         </h3>
       </div>

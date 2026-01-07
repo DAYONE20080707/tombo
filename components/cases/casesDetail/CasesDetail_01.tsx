@@ -193,7 +193,7 @@ const CasesDetail_01 = ({ params }: CasesDetailProps) => {
               >
                 <NavigationArrow direction="left" className="text-white" />
                 <div>
-                  <p className="text-base mb-1 font-bold font-lato">PREV</p>
+                  <p className="text-base mb-1 font-bold font-en">PREV</p>
                   <p className="text-lg font-semibold line-clamp-2">
                     {prevPost.title}
                   </p>
@@ -211,7 +211,7 @@ const CasesDetail_01 = ({ params }: CasesDetailProps) => {
                 className="group flex items-center justify-end text-white hover:text-gray-600 transition-colors duration-200 w-[calc(50%-20px)] gap-6"
               >
                 <div className="text-left">
-                  <p className="text-base mb-1 font-bold font-lato">NEXT</p>
+                  <p className="text-base mb-1 font-bold font-en">NEXT</p>
                   <p className="text-lg font-semibold line-clamp-2">
                     {nextPost.title}
                   </p>

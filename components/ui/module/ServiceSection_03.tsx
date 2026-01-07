@@ -38,7 +38,7 @@ const ServiceSection_03 = ({
       </div>
       <div className="flex flex-col md:flex-row gap-6">
         <div className="md:w-[28vw] md:max-w-[400px]">
-          <p className="text-accentColor text-lg font-lato font-extrabold tracking-[0.03em]">
+          <p className="text-accentColor text-lg font-en font-extrabold tracking-[0.03em]">
             {enTitle}
           </p>
           <h2 className="text-accentColor text-[28px] font-bold leading-[150%] tracking-[0.05em] mt-2 pb-6">
