@@ -52,7 +52,7 @@ const PageHeadline: React.FC<PageHeadlineProps> = ({
       </p>
       <h1
         className={classNames(
-          "text-2xl md:text-[64px] leading-[150%] tracking-[0.05em] text-white font-extrabold font-en",
+          "text-4xl md:text-[64px] leading-[150%] tracking-[0.05em] text-white font-extrabold font-en",
           titleClassName
         )}
       >

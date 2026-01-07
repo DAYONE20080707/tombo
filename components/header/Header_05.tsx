@@ -100,9 +100,9 @@ const Header_05 = () => {
 
           {/* ハンバーガーメニューボタン */}
           <button
-            className={`block md:hidden text-white transition-transform duration-300 ${
+            className={`block md:hidden transition-transform duration-300 ${
               isMenuOpen ? "rotate-90" : "rotate-0"
-            }`}
+            } ${isScrolled ? "text-baseColor" : "text-white"}`}
             onClick={handleMenuToggle}
             aria-label="Toggle menu"
           >
@@ -167,7 +167,9 @@ const Header_05 = () => {
             </div> */}
             {/* ContactButton */}
             <li className="space-y-4">
-              <ContactButton className="w-full py-4 font-normal" >お問い合わせ</ContactButton>
+              <ContactButton className="w-full py-4 font-normal">
+                お問い合わせ
+              </ContactButton>
               <ContactButtonCorporate className="">
                 法人のお客様
               </ContactButtonCorporate>
