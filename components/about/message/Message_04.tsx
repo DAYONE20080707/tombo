@@ -12,28 +12,24 @@ import AboutSection from "@/components/ui/module/AboutSection_04";
 const Message_04 = () => {
   return (
     <>
-      <SectionContent className="![padding-bottom:0]">
+      <SectionContent className="bg-white text-baseColor">
         {/* widthがフルサイズでない場合は指定する */}
         <section className=" md:max-w-[1200px] mx-auto ">
-          {/* <ContentHeadline
-            subTitle="Who we are"
-            maintitle="私たちについて"
-            subTitleClassName="text-center"
-            titleClassName="text-center"
-          /> */}
+          <ContentHeadline
+            subTitle="代表挨拶"
+            mainTitle="Message"
+          />
                 <AboutSection
-        title="無数の選択肢の中から\nベストな選択を"
-        description={`経営者は日々悩んでいます。そして、日々決断しています。
-
-一番成果が上がる選択はどれか。一番効率のいい選択はどれか。
-無数の選択肢の中からベストな選択ができるよう、
-常に試行錯誤し決断しています。
-
-私たちはその決断が本当にベストなのか、検討しています。
-そして、その決断が本当のベストになるためのサポートを
-常に用意しています。`}
-        position="役職役職"
-        name="氏名　氏名"
+        title="人(ヒト) に…\n事(コト) に…\n徹底的に向き合う。"
+        description={`全ての企業は｢人(ヒト) ｣の集合体ですが
+          集まると必ず何か｢事(コト) ｣が起こります。
+          
+          当社は人事の名に恥じぬ
+｢人(ヒト) ｣と｢事(コト) ｣に
+蜻蛉の不退転の精神で徹底的に向き合い続け、
+全ての企業の人的経営課題を解決致します。`}
+        position="CEO"
+        name="渡辺　哲平"
         // 以下は任意
         // buttonHref="/about"
         // imageUrl="/path/to/image.jpg"
