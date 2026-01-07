@@ -13,7 +13,7 @@ const ContactButtonCorporate = ({
 
   return (
     <Link
-      href="/contact"
+      href="/contact/corporate"
       className={`bg-white text-accentColor cursor-pointer flex items-center justify-center w-full px-5 py-4 rounded-full min-w-[200px] ${
         isEnglish
           ? "font-en text-lg tracking-[0.03em]"

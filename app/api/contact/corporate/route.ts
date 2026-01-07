@@ -8,17 +8,21 @@ const { EMAIL_HOST, EMAIL_PORT, EMAIL_USER, EMAIL_PASS, EMAIL_TO } =
 export async function POST(req: Request) {
   try {
     const {
-      inquiryType = "",
-      department = "",
+      company,
       lastName,
       firstName,
+      department = "",
+      position = "",
       email,
       phone,
+      website = "",
+      inquiryType = "",
       message,
     } = await req.json();
 
-    // 必須項目のバリデーション（今回のフォーム構成に合わせる）
+    // 必須項目のバリデーション（法人フォーム用）
     const requiredFields = [
+      company,
       lastName,
       firstName,
       email,
@@ -49,33 +53,37 @@ export async function POST(req: Request) {
 
     if (inquiryType) {
       const inquiryTypeTextMap: Record<string, string> = {
-        service: "サービス・商品に関するお問い合わせ",
-        price: "料金・プランに関するお問い合わせ",
-        usage: "ご利用方法に関するお問い合わせ",
+        service: "サービス・製品に関するお問い合わせ",
+        estimate: "見積もり・価格に関するお問い合わせ",
+        partnership: "パートナーシップ・提携に関するお問い合わせ",
+        recruit: "採用に関するお問い合わせ",
         other: "その他",
       };
       const inquiryTypeText = inquiryTypeTextMap[inquiryType] || inquiryType;
       emailBody += `【お問い合わせ内容】 ${inquiryTypeText}\n`;
     }
 
-    if (department) emailBody += `所属: ${department}\n`;
+    emailBody += `会社名: ${company}\n`;
+    if (department) emailBody += `部署: ${department}\n`;
+    if (position) emailBody += `役職: ${position}\n`;
     emailBody += `姓: ${lastName}\n`;
     emailBody += `名: ${firstName}\n`;
     emailBody += `メールアドレス: ${email}\n`;
     emailBody += `電話番号: ${phone}\n`;
+    if (website) emailBody += `会社ウェブサイトURL: ${website}\n`;
     emailBody += `\n本文:\n${message}\n`;
 
     // ① 管理者宛のメール
     const adminMailOptions = {
-      from: `"お問い合わせフォーム" <${EMAIL_USER}>`,
+      from: `"お問い合わせフォーム（法人）" <${EMAIL_USER}>`,
       to: EMAIL_TO,
-      subject: "【お問い合わせ】新しいメッセージが届きました",
+      subject: "【法人お問い合わせ】新しいメッセージが届きました",
       text: emailBody,
       replyTo: email,
     };
 
     // ② ユーザー宛の確認メール
-    let userEmailBody = `${lastName} ${firstName} 様\n\nお問い合わせありがとうございます。\n以下の内容で受け付けました。\n\n------------------\n`;
+    let userEmailBody = `${company} ${lastName} ${firstName} 様\n\nお問い合わせありがとうございます。\n以下の内容で受け付けました。\n\n------------------\n`;
     userEmailBody += emailBody;
     userEmailBody +=
       "\n------------------\n\n担当者が確認後、ご連絡いたします。\n\nよろしくお願いいたします。";
@@ -106,3 +114,5 @@ export async function POST(req: Request) {
     );
   }
 }
+
+

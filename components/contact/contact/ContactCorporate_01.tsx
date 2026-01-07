@@ -16,6 +16,13 @@ interface FormField {
 
 const formFields: FormField[] = [
   {
+    label: "会社名",
+    name: "company",
+    type: "text",
+    placeholder: "合同会社TOMBO",
+    required: true,
+  },
+  {
     label: "姓",
     name: "lastName",
     type: "text",
@@ -30,10 +37,17 @@ const formFields: FormField[] = [
     required: true,
   },
   {
-    label: "所属",
+    label: "部署",
     name: "department",
     type: "text",
     placeholder: "営業部",
+    required: false,
+  },
+  {
+    label: "役職",
+    name: "position",
+    type: "text",
+    placeholder: "課長",
     required: false,
   },
   {
@@ -47,8 +61,15 @@ const formFields: FormField[] = [
     label: "お電話番号",
     name: "phone",
     type: "tel",
-    placeholder: "00-0000-0000",
+    placeholder: "03-0000-0000",
     required: true,
+  },
+  {
+    label: "会社ウェブサイトURL",
+    name: "website",
+    type: "text",
+    placeholder: "example.com",
+    required: false,
   },
   {
     label: "お問い合わせ内容",
@@ -56,9 +77,13 @@ const formFields: FormField[] = [
     type: "select",
     options: [
       { value: "", label: "選択してください" },
-      { value: "service", label: "サービス・商品に関するお問い合わせ" },
-      { value: "price", label: "料金・プランに関するお問い合わせ" },
-      { value: "usage", label: "ご利用方法に関するお問い合わせ" },
+      { value: "service", label: "サービス・製品に関するお問い合わせ" },
+      { value: "estimate", label: "見積もり・価格に関するお問い合わせ" },
+      {
+        value: "partnership",
+        label: "パートナーシップ・提携に関するお問い合わせ",
+      },
+      { value: "recruit", label: "採用に関するお問い合わせ" },
       { value: "other", label: "その他" },
     ],
     required: true,
@@ -77,7 +102,7 @@ formFields.forEach((field) => {
   initialFormData[field.name] = "";
 });
 
-const ContactForm = () => {
+const ContactCorporateForm = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [loading, setLoading] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
@@ -109,7 +134,7 @@ const ContactForm = () => {
     setResponseMessage("");
 
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("/api/contact/corporate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -134,7 +159,7 @@ const ContactForm = () => {
         <section>
           <p className="text-lg font-semibold ![line-height:160%] tracking-[0.03em] whitespace-pre-line">
             <span className="text-accentColor">
-              こちらのフォームは個人のお客様専用です。
+              こちらのフォームは法人のお客様専用です。
             </span>
             <br />
             必須項目を全てご入力の上「送信ボタン」を押して、フォームを送信してください。
@@ -210,25 +235,6 @@ const ContactForm = () => {
                 )}
               </div>
             ))}
-            <div className="flex flex-col items-center gap-4 mt-10 md:mt-20">
-              <input
-                type="file"
-                ref={fileInputRef}
-                onChange={handleFileChange}
-                className="hidden"
-                accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
-              />
-              <button
-                type="button"
-                onClick={handleFileButtonClick}
-                className="w-[80vw] max-w-[350px] py-4 px-0 rounded-[30px] border border-accentColor bg-transparent text-lg text-accentColor hover:opacity-70 flex items-center justify-center font-semibold"
-              >
-                ファイルを添付
-              </button>
-              {selectedFile && (
-                <p className="text-sm text-white">{selectedFile.name}</p>
-              )}
-            </div>
             <div className="flex justify-center mt-10 md:mt-16">
               <SubmitButton loading={loading} />
             </div>
@@ -250,4 +256,4 @@ const ContactForm = () => {
   );
 };
 
-export default ContactForm;
+export default ContactCorporateForm;
