@@ -13,7 +13,7 @@ export const Menu = [
   {
     name: "About  us",
     nameJa: "導入事例",
-    href: "/case",
+    href: "/cases",
   },
   {
     name: "Blog",

@@ -1,4 +1,4 @@
-// components/blog/blogDetail/BlogDetail_01.tsx
+// components/cases/casesDetail/CasesDetail_01.tsx
 
 "use client";
 
@@ -6,20 +6,23 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Cms } from "@/types";
-import { blogsFetch } from "@/lib/api/blogsFetch";
+import { casesFetch } from "@/lib/api/casesFetch";
 import styles from "@/styles/microcms.module.css";
 import Breadcrumb from "@/components/ui/module/Breadcrumb";
+import { NavigationArrow } from "@/components/ui/icons/NavigationArrow";
 
-interface BlogDetailProps {
+interface CasesDetailProps {
   params: {
     id: string;
   };
 }
 
-const BlogDetail_01 = ({ params }: BlogDetailProps) => {
+const CasesDetail_01 = ({ params }: CasesDetailProps) => {
   const { id } = params;
   const [post, setPost] = useState<Cms | null>(null);
   const [relatedPosts, setRelatedPosts] = useState<Cms[]>([]);
+  const [prevPost, setPrevPost] = useState<Cms | null>(null);
+  const [nextPost, setNextPost] = useState<Cms | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -32,7 +35,7 @@ const BlogDetail_01 = ({ params }: BlogDetailProps) => {
         setError(null);
 
         // 記事取得
-        const currentPost = await blogsFetch.get(id);
+        const currentPost = await casesFetch.get(id);
         if (!mounted) return;
 
         if (!currentPost) {
@@ -42,27 +45,43 @@ const BlogDetail_01 = ({ params }: BlogDetailProps) => {
 
         setPost(currentPost);
 
+        // 一覧取得（前後記事判定用 & 関連記事用）
+        const allCases = await casesFetch.list(100);
+
+        if (!mounted) return;
+
+        // 前後記事取得（一覧の並び順に基づく）
+        const currentIndex = allCases.findIndex((p) => p.id === id);
+        if (currentIndex !== -1) {
+          // 一般的に一覧が新しい順の場合:
+          //   PREV = ひとつ後ろ（古い記事）、NEXT = ひとつ前（新しい記事）
+          const prev = allCases[currentIndex + 1] ?? null;
+          const next = allCases[currentIndex - 1] ?? null;
+          setPrevPost(prev);
+          setNextPost(next);
+        } else {
+          setPrevPost(null);
+          setNextPost(null);
+        }
+
         // 関連記事取得（同カテゴリーで最新順）
         let related: Cms[] = [];
         if (
           Array.isArray(currentPost.category) &&
           currentPost.category.length > 0
         ) {
-          const allSameCategory = await blogsFetch.list(100);
-          if (mounted) {
-            related = allSameCategory
-              .filter(
-                (p) =>
-                  p.id !== id &&
-                  Array.isArray(p.category) &&
-                  p.category.includes(currentPost.category![0])
-              )
-              .slice(0, 5);
-            setRelatedPosts(related);
-          }
+          related = allCases
+            .filter(
+              (p) =>
+                p.id !== id &&
+                Array.isArray(p.category) &&
+                p.category.includes(currentPost.category![0])
+            )
+            .slice(0, 5);
+          setRelatedPosts(related);
         }
       } catch (err) {
-        console.error("Failed to fetch blog post:", err);
+        console.error("Failed to fetch cases post:", err);
         if (mounted) {
           setError("記事の取得に失敗しました");
         }
@@ -85,7 +104,7 @@ const BlogDetail_01 = ({ params }: BlogDetailProps) => {
       <div className=" md:max-w-[1240px] mx-auto py-[100px] md:pt-[150px] px-5">
         <Breadcrumb
           parentDirectoryName="ブログ"
-          parentDirectoryLink="/blog"
+          parentDirectoryLink="/cases"
           mainTitle={post?.title || "記事"}
         />
         {loading ? (
@@ -164,51 +183,55 @@ const BlogDetail_01 = ({ params }: BlogDetailProps) => {
           </article>
         )}
 
-        {/* 関連記事 */}
-        {relatedPosts.length > 0 && (
-          <section className="mt-24 border-t border-[#636B7D] pt-10">
-            <h2 className="text-2xl mb-6 text-accentColor font-bold">関連記事</h2>
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-              {relatedPosts.map((relatedPost) => (
-                <Link
-                  key={relatedPost.id}
-                  href={`/blog/${relatedPost.id}`}
-                  className="overflow-hidden duration-300 hover:opacity-80 text-white"
-                >
-                  {relatedPost.image && (
-                    <div className="relative w-full pt-[56.25%] overflow-hidden md:h-[180px]">
-                      <Image
-                        src={relatedPost.image.url}
-                        alt={relatedPost.title}
-                        fill
-                        className="object-cover rounded-[15px]"
-                      />
-                    </div>
-                  )}
-                  <div className="mt-4">
-                    {relatedPost.date && (
-                      <time className="text-xs block">
-                        {new Date(relatedPost.date)
-                          .toLocaleDateString("ja-JP", {
-                            year: "numeric",
-                            month: "2-digit",
-                            day: "2-digit",
-                          })
-                          .replace(/\//g, ".")}
-                      </time>
-                    )}
-                    <p className="text-lg font-semibold line-clamp-2 mt-1">
-                      {relatedPost.title}
-                    </p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
+        {/* 前後記事ナビ */}
+        <nav className="mt-24 border-t border-b border-white py-4">
+          <div className="flex justify-between items-center relative">
+            {prevPost ? (
+              <Link
+                href={`/cases/${prevPost.id}`}
+                className="group flex items-center text-white hover:text-gray-600 transition-colors duration-200 w-[calc(50%-20px)] gap-6"
+              >
+                <NavigationArrow
+                  direction="left"
+                  className="text-white"
+                />
+                <div>
+                  <p className="text-base mb-1 font-bold font-lato">PREV</p>
+                  <p className="text-lg font-semibold line-clamp-2">
+                    {prevPost.title}
+                  </p>
+                </div>
+              </Link>
+            ) : (
+              <div className="w-[calc(50%-20px)]" />
+            )}
+
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[1px] h-16 bg-white"></div>
+
+            {nextPost ? (
+              <Link
+                href={`/cases/${nextPost.id}`}
+                className="group flex items-center justify-end text-white hover:text-gray-600 transition-colors duration-200 w-[calc(50%-20px)] gap-6"
+              >
+                <div className="text-left">
+                  <p className="text-base mb-1 font-bold font-lato">NEXT</p>
+                  <p className="text-lg font-semibold line-clamp-2">
+                    {nextPost.title}
+                  </p>
+                </div>
+                <NavigationArrow
+                  direction="right"
+                  className="text-white"
+                />
+              </Link>
+            ) : (
+              <div className="w-[calc(50%-20px)]" />
+            )}
+          </div>
+        </nav>
       </div>
     </>
   );
 };
 
-export default BlogDetail_01;
+export default CasesDetail_01;

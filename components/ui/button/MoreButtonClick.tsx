@@ -51,20 +51,33 @@ const MoreButtonClick = ({
       )}
     >
       <span>{children}</span>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-      >
-        <path d="M6.25 12H17.75" stroke={getArrowColor()} />
-        <path d="M13.75 8L17.75 12L13.75 16" stroke={getArrowColor()} />
-        <circle cx="12" cy="12" r="11.5" stroke={getArrowColor()} />
-      </svg>
+      {variant === "accent" ? (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+        >
+          <circle cx="12" cy="12" r="12" fill="white" />
+          <path d="M6.25 12H17.75" stroke="#FF7C56" />
+          <path d="M13.75 8L17.75 12L13.75 16" stroke="#FF7C56" />
+        </svg>
+      ) : (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+        >
+          <path d="M6.25 12H17.75" stroke={getArrowColor()} />
+          <path d="M13.75 8L17.75 12L13.75 16" stroke={getArrowColor()} />
+          <circle cx="12" cy="12" r="11.5" stroke={getArrowColor()} />
+        </svg>
+      )}
     </button>
   );
 };
 
 export default MoreButtonClick;
-
