@@ -191,10 +191,7 @@ const CasesDetail_01 = ({ params }: CasesDetailProps) => {
                 href={`/cases/${prevPost.id}`}
                 className="group flex items-center text-white hover:text-gray-600 transition-colors duration-200 w-[calc(50%-20px)] gap-6"
               >
-                <NavigationArrow
-                  direction="left"
-                  className="text-white"
-                />
+                <NavigationArrow direction="left" className="text-white" />
                 <div>
                   <p className="text-base mb-1 font-bold font-lato">PREV</p>
                   <p className="text-lg font-semibold line-clamp-2">
@@ -219,10 +216,7 @@ const CasesDetail_01 = ({ params }: CasesDetailProps) => {
                     {nextPost.title}
                   </p>
                 </div>
-                <NavigationArrow
-                  direction="right"
-                  className="text-white"
-                />
+                <NavigationArrow direction="right" className="text-white" />
               </Link>
             ) : (
               <div className="w-[calc(50%-20px)]" />
