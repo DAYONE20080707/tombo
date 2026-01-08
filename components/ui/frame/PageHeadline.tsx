@@ -29,7 +29,7 @@ const PageHeadline: React.FC<PageHeadlineProps> = ({
     <section
       id={id}
       className={classNames(
-        "w-full md:max-w-[1200px] md:mb-16 tracking-wide",
+        "w-full md:max-w-[1200px] mb-16 md:mb-24 tracking-wide",
         className
       )}
     >

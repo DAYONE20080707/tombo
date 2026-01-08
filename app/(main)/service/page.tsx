@@ -8,7 +8,7 @@ import Cta_03 from "@/components/ui/module/cta/Cta_03";
 const ServicePage = () => {
   return (
     <div>
-      <div className=" md:max-w-[1240px] mx-auto pt-[60px] md:pt-[120px] px-5">
+      <div className=" md:max-w-[1240px] mx-auto pt-[90px] md:pt-[120px] px-5">
         <Breadcrumb mainTitle="人事コンサルティング" />
       </div>
       <div className="mt-10 md:mt-[120px]">

@@ -91,7 +91,7 @@ const Blog_02 = ({ limit = 3 }: BlogProps) => {
     <SectionContent className="!pt-0 text-baseColor">
       <section className="md:max-w-[1200px] mx-auto">
         {/* カテゴリボタン */}
-        <div className="flex flex-wrap justify-start md:justify-center gap-x-5 md:gap-x-20 rounded-full bg-white mx-auto px-5 md:px-20 w-fit">
+        <div className="flex flex-wrap justify-start md:justify-center gap-x-5 md:gap-x-20 rounded-[20px] md:rounded-full bg-white mx-auto px-5 md:px-20 w-fit">
           {categories.map((category) => (
             <button
               key={category.id}
@@ -117,15 +117,15 @@ const Blog_02 = ({ limit = 3 }: BlogProps) => {
           </div>
         ) : (
           <>
-            <div className="mt-16 grid grid-cols-1 gap-y-6 md:gap-y-6 gap-x-10 md:gap-x-16 bg-white p-16 rounded-[40px]">
+            <div className="mt-16 grid grid-cols-1 gap-y-6 md:gap-y-6 gap-x-10 md:gap-x-16 bg-white p-4 md:p-16 rounded-[20px] md:rounded-[40px]">
               {displayContents.map((post) => (
                 <Link
                   key={post.id}
                   href={`/blog/${post.id}`}
                   className="w-full hover:opacity-90 transition-opacity"
                 >
-                  <div className="w-full md:flex space-x-6 pb-6 border-b border-[#636B7D]">
-                    <div className="w-full md:w-[180px] h-[250px] md:h-[130px] mt-5 md:mt-0">
+                  <div className="w-full md:flex md:space-x-6 pb-6 border-b border-[#636B7D]">
+                    <div className="w-full md:w-[180px] h-[200px] md:h-[130px] mt-5 md:mt-0">
                       {post.image && (
                         <Image
                           src={post.image.url}

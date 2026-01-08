@@ -5,7 +5,7 @@ import Image from "next/image";
 // プライバシーポリシー
 const Privacy_01 = () => {
   return (
-    <div className="md:max-w-[1240px] px-5 mx-auto py-[96px] text-base font-normal leading-[160%]">
+    <div className="md:max-w-[1240px] px-5 mx-auto pb-20 md:pb-[96px] text-base font-normal leading-[160%]">
       <div>
         合同会社TOMBO(以下、｢当社｣といいます。)
         は、本ウェブサイト上で提供するサービスにおける個人情報保護の重要性について認識し、個人情報の保護に関する法律を遵守すると共に、以下のプライバシーポリシー(以下、｢本ポリシー｣といいます。)

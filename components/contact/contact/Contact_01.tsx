@@ -129,7 +129,7 @@ const ContactForm = () => {
   };
 
   return (
-    <article className="w-full md:max-w-[1240px] h-auto mx-auto px-5 md:px-5 pt-16 pb-20 md:pb-[120px]">
+    <article className="w-full md:max-w-[1240px] h-auto mx-auto px-5 md:px-5 pt-0 pb-20 md:pt-0 md:pb-[120px]">
       <div className="w-full">
         <section>
           <p className="text-lg font-semibold ![line-height:160%] tracking-[0.03em] whitespace-pre-line">
@@ -147,7 +147,7 @@ const ContactForm = () => {
           {responseMessage && <p className="text-red-500">{responseMessage}</p>}
           <form onSubmit={handleSubmit}>
             {formFields.map((field) => (
-              <div key={field.name} className="mb-6 md:mb-10 w-full">
+              <div key={field.name} className="mb-6 w-full">
                 <label className="text-sm md:text-base block font-semibold mb-1 md:mb-2 ![line-height:200%]">
                   {field.label}{" "}
                   {field.required && (

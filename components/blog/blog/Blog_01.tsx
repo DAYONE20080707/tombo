@@ -104,7 +104,7 @@ const Blog_01 = ({ limit = 3 }: BlogProps) => {
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-3 md:gap-10 mt-16">
+            <div className="grid grid-cols-1 md:grid-cols-3 md:gap-10 md:mt-16">
               {displayContents.map((post) => (
                 <Link
                   key={post.id}

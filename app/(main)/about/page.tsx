@@ -8,7 +8,7 @@ import Lowerkv_04 from "@/components/lowerkv/Lowerkv_04";
 const AboutPage = () => {
   return (
     <div>
-      <div className=" md:max-w-[1240px] mx-auto pt-[60px] md:pt-[120px] px-5">
+      <div className=" md:max-w-[1240px] mx-auto pt-[90px] md:pt-[120px] px-5">
         <Breadcrumb mainTitle="私たちについて" />
       </div>
       <div className="mt-10 md:mt-[120px]">

@@ -1,6 +1,7 @@
 import Privacy1 from "@/components/privacy/Privacy_01"
 import PageHeadline from "@/components/ui/frame/PageHeadline"
 import Breadcrumb from "@/components/ui/module/Breadcrumb"
+import Cta_03 from "@/components/ui/module/cta/Cta_03"
 
 // 私たちについて
 const PrivacyPage = () => {
@@ -13,6 +14,7 @@ const PrivacyPage = () => {
         </div>
       </div>
       <Privacy1 />
+      <Cta_03/>
     </div>
   )
 }

@@ -7,7 +7,7 @@ import Breadcrumb from "@/components/ui/module/Breadcrumb";
 const CasesPage = () => {
   return (
     <div>
-      <div className=" md:max-w-[1240px] mx-auto pt-[60px] md:pt-[120px] px-5">
+      <div className=" md:max-w-[1240px] mx-auto pt-[90px] md:pt-[120px] px-5">
         <Breadcrumb mainTitle="導入事例" />
       </div>
       <div className="mt-10 md:mt-[120px]">

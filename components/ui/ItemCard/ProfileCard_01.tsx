@@ -13,7 +13,7 @@ const ProfileCard_01 = ({ label, value }: ProfileCard_01Props) => {
       <dt className="text-lg font-semibold flex items-baseline py-2 md:py-4 md:border-b md:border-[#eee] text-[#969696]">
         {label}
       </dt>
-      <dd className="font-light flex items-center pb-4 md:py-4 border-b border-[#eee] whitespace-pre-line">
+      <dd className="font-light flex items-center pb-4 md:py-6 border-b border-[#eee] whitespace-pre-line">
         {value}
       </dd>
     </dl>

@@ -30,8 +30,8 @@ const AboutSection_04 = ({
   };
 
   return (
-    <div className=" md:mt-16 flex flex-col md:flex-row gap-10 md:gap-20">
-      <div className="md:w-[36vw] md:max-w-[520px] h-[300px] md:h-auto relative">
+    <div className=" md:mt-16 flex flex-col md:flex-row md:gap-20">
+      <div className="md:w-[36vw] md:max-w-[520px] h-[500px] md:h-auto relative">
         <Image
           src={imageUrl || "/about/message.jpg"}
           alt={name || "message"}

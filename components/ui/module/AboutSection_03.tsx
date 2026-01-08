@@ -57,7 +57,7 @@ const AboutSection_03 = ({
           )} */}
         </div>
       </div>
-      <section className="md:w-full h-[250px] md:h-[527px] mx-auto mt-10 md:mt-20  flex justify-center relative ">
+      <section className="md:w-full h-[150px] md:h-[527px] mx-auto mt-10 md:mt-20  flex justify-center relative ">
         <Image
           src="/about/company-logo.jpg"
           alt="message"

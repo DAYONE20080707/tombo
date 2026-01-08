@@ -14,7 +14,7 @@ const Profile_01 = () => {
       <SectionContent className="bg-baseColor rounded-t-[40px]">
         <section className="md:max-w-[1200px] mx-auto">
           <ContentHeadline subTitle="会社概要" mainTitle="Profile" />
-          <div className="mt-16 [&>dl:first-child>dt]:border-t [&>dl:first-child>dd]:border-t md:[&>dl:first-child>dt]:border-t md:[&>dl:first-child>dd]:border-t">
+          <div className="mt-16 [&>dl:first-child>dt]:border-t md:[&>dl:first-child>dd]:border-t">
             <ProfileCard label="社名" value="合同会社TOMBO" />
             <ProfileCard label="創業" value="2020/04/01" />
             <ProfileCard label="設立" value="2024/01/16" />

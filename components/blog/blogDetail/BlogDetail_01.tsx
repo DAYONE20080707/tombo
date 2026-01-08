@@ -147,12 +147,12 @@ const BlogDetail_01 = ({ params }: BlogDetailProps) => {
             </div>
 
             {post.image && (
-              <div className="w-full h-[586px] relative mb-24">
+              <div className="w-full h-[200px] md:h-[586px] relative mb-10 md:mb-24">
                 <Image
                   src={post.image.url}
                   alt={post.title}
                   fill
-                  className="object-cover rounded-[40px]"
+                  className="object-cover rounded-[20px] md:rounded-[40px]"
                 />
               </div>
             )}

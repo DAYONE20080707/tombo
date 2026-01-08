@@ -166,12 +166,12 @@ const CasesDetail_01 = ({ params }: CasesDetailProps) => {
             </div>
 
             {post.image && (
-              <div className="w-full h-[586px] relative mb-24">
+              <div className="w-full  h-[300px] md:h-[586px] relative mb-10 md:mb-24">
                 <Image
                   src={post.image.url}
                   alt={post.title}
                   fill
-                  className="object-cover rounded-[40px]"
+                  className="object-cover rounded-[20px] md:rounded-[40px]"
                 />
               </div>
             )}
