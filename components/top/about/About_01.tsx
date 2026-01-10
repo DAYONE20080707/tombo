@@ -17,15 +17,16 @@ const About_01 = () => {
         {/* widthがフルサイズでない場合は指定する */}
         <section className="w-full md:max-w-[1240px] mx-auto px-5">
           <ContentHeadline
-            subTitle="Who we are"
-            mainTitle="私たちについて"
+            subTitle="私たちについて"
+            mainTitle="Who we are"
             subTitleClassName=""
             titleClassName=""
           />
         </section>
         <AboutSection
-          title="見出しテキスト\n
-はいります見出し"
+          title="｢人(ヒト) ｣に…\n
+          ｢事(コト) ｣に…\n
+          徹底的に向き合う。"
           description={`メッセージはいります。メッセージはいります。メッセージはいります。メッセージはいります。メッセージはいります。メッセージはいります。メッセージはいります。メッセージはいります。
 メッセージはいります。メッセージはいります。メッセージはいります。メッセージはいります。メッセージはいります。メッセージはいります。
 メッセージはいります。メッセージはいります。

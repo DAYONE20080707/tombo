@@ -6,10 +6,10 @@ export const CompanyInfo = [
       <Image
         src={
           type === "primary"
-            ? "/common/logo_header.png" // 1つ目のロゴパス（白色ロゴ）
+            ? "/common/logo.png" // 1つ目のロゴパス（白色ロゴ）
             : type === "secondary"
             ? "/common/logo_square.png" // 2つ目のロゴパス（黒色ロゴ）
-            : "/common/logo.png" // 3つ目のロゴパス（テキストなし）
+            : "/common/logo_black.png" // 3つ目のロゴパス（テキストなし）
         }
         alt="logo"
         width={200} // 適切な幅を指定
@@ -17,9 +17,9 @@ export const CompanyInfo = [
         className="w-full h-full object-contain"
       />
     ),
-    companyNameText: "企業名企業名企業名企業名企業名",
-    companyPostalCode: "000-000",
-    companyAddress: "○○県○○市○○町00-00○○○○○ビル00F",
+    companyNameText: "合同会社TOMBO",
+    companyPostalCode: "100-0004",
+    companyAddress: "東京都千代田区大手町1-6-1 大手町ビル1F",
     companyTel: "000-000-0000",
     companyTelHref: "tel:0000000000",
     companyEmail: "info@company.co.jp",

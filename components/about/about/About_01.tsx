@@ -7,7 +7,7 @@ import ContentHeadline from "@/components/ui/frame/ContentHeadline";
 import PageContent from "@/components/ui/frame/PageContent";
 import SectionContent from "@/components/ui/frame/SectionContent";
 import Image from "next/image";
-import AboutSection from "@/components/ui/module/AboutSection_01";
+import AboutSection from "@/components/ui/module/AboutSection_03";
 
 // メッセージ
 const About_01 = () => {
@@ -16,28 +16,32 @@ const About_01 = () => {
       <SectionContent className="pt-14 md:pt-24">
         {/* widthがフルサイズでない場合は指定する */}
         <section className="w-full md:max-w-[1200px] mx-auto">
-          {/* <ContentHeadline subTitle="Who we are" maintitle="私たちについて" /> */}
-      
-        </section>
-        <AboutSection
-            title="無数の選択肢の中から\nベストな選択を"
-            description={`経営者は日々悩んでいます。そして、日々決断しています。
+          <ContentHeadline
+            subTitle="社名・ロゴに込めた想い"
+            mainTitle="Company name & Logo"
+          />
+          <AboutSection
+            title="不退転の勝ち虫、\n蜻蛉。"
+            description={`社名のTOMBOは皆さんお察しの通り、昆虫の｢蜻蛉｣から拝借しております。
+拝借した理由は以下、3つになります。
 
-一番成果が上がる選択はどれか。一番効率のいい選択はどれか。
-無数の選択肢の中からベストな選択ができるよう、
-常に試行錯誤し決断しています。
+①不退転　
+蜻蛉は後ろ向きに飛べず、前進しか出来ない事から当社も｢人(ヒト) ｣｢事(コト) ｣に徹底的に向き合い決して引かない強いスタンスに肖りました。
 
-私たちはその決断が本当にベストなのか、検討しています。
-そして、その決断が本当のベストになるためのサポートを
-常に用意しています。`}
-      
+②勝ち虫
+不退転である事から装飾品に蜻蛉を誂える戦国武将も多く、縁起物として重宝されていた。
+
+③3つの目
+人事には3つの目という考え方があります。
+それぞれ鳥の目・虫の目・魚の目なのですが蜻蛉は幼虫の時はヤゴとして水中で生活し、成虫になると虫として大空に飛び立ち、鳥の様に素早く正確に狩りをする食物連鎖の頂点です。`}
+            imageUrl="/about/company-logo.jpg"
+
             // 以下は任意
-            // imageUrl="/path/to/image.jpg"
             // position="代表取締役"
             // name="山田太郎"
           />
+        </section>
       </SectionContent>
-
     </>
   );
 };

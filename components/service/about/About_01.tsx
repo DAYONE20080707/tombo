@@ -6,39 +6,28 @@ import MoreLinkButton from "@/components/ui/button/MoreButton";
 import ContentHeadline from "@/components/ui/frame/ContentHeadline";
 import SectionContent from "@/components/ui/frame/SectionContent";
 import Image from "next/image";
-import AboutSection from "@/components/ui/module/AboutSection_01";
+import AboutSection from "@/components/ui/module/AboutSection_02";
 
 // メッセージ
 const About_01 = () => {
   return (
     <>
-      <SectionContent className="![padding-bottom:0]">
+      <SectionContent className="bg-white text-baseColor">
         {/* widthがフルサイズでない場合は指定する */}
-        <section className="w-full md:max-w-[1200px] mx-auto">
-          <ContentHeadline
-            subTitle="Who we are"
-            mainTitle="私たちについて"
-            // subTitleClassName="text-center"
-            // titleClassName="text-center"
-          />
-        </section>
-        <AboutSection
-          title="無数の選択肢の中から\nベストな選択を"
-          description={`経営者は日々悩んでいます。そして、日々決断しています。
-
-一番成果が上がる選択はどれか。一番効率のいい選択はどれか。
-無数の選択肢の中からベストな選択ができるよう、
-常に試行錯誤し決断しています。
-
-私たちはその決断が本当にベストなのか、検討しています。
-そして、その決断が本当のベストになるためのサポートを
-常に用意しています。`}
+        <section className="w-full md:max-w-[1680px] mx-auto">
+           <AboutSection
+          title="それぞれの｢課題｣と\nそれぞれの｢答え｣が\n必ずある。"
+          description={`多種多様な業種・業界、大小様々な企業規模のクライアントの人的経営課題に日夜チャレンジする当社ですが「全く同じ課題」も無ければ「全く同じ答え」も存在しません。
+            
+            課題も答えも必ず最後は個別最適になります。その答えを導き出す為にプロの知識 + 圧倒的な行動量 + 蜻蛉の不退転の精神を以って圧倒的な成果へと導きます。`}
           buttonHref="/about"
           // 以下は任意
           // imageUrl="/path/to/image.jpg"
           // position="代表取締役"
           // name="山田太郎"
         />
+        </section>
+       
       </SectionContent>
     </>
   );

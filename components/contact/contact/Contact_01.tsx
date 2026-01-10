@@ -1,66 +1,41 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import SubmitButton from "@/components/ui/button/SubmitButton"
+import { useState } from "react";
+import React from "react";
+import { useRouter } from "next/navigation";
+import SubmitButton from "@/components/ui/button/SubmitButton";
 
 interface FormField {
-  label: string
-  name: string
-  type: "text" | "email" | "tel" | "textarea" | "select"
-  placeholder?: string
-  required: boolean
-  options?: { value: string; label: string }[]
+  label: string;
+  name: string;
+  type: "text" | "email" | "tel" | "textarea" | "select";
+  placeholder?: string;
+  required: boolean;
+  options?: { value: string; label: string }[];
 }
 
 const formFields: FormField[] = [
-  // {
-  //   label: "お問い合わせ内容",
-  //   name: "inquiryType",
-  //   type: "select",
-  //   options: [
-  //     { value: "", label: "以下から選択してください" },
-  //     { value: "inquiry1", label: "お問い合わせ内容1" },
-  //     { value: "inquiry2", label: "お問い合わせ内容2" },
-  //     { value: "inquiry3", label: "お問い合わせ内容3" },
-  //   ],
-  //   required: true,
-  // },
   {
-    label: "会社名",
-    name: "company",
-    type: "text",
-    placeholder: "株式会社〇〇〇〇〇〇",
-    required: false,
-  },
-  {
-    label: "氏名",
+    label: "姓",
     name: "lastName",
     type: "text",
     placeholder: "田中",
     required: true,
   },
   {
-    label: "",
+    label: "名",
     name: "firstName",
     type: "text",
     placeholder: "太郎",
-    required: false,
+    required: true,
   },
   {
-    label: "所属部署名",
+    label: "所属",
     name: "department",
     type: "text",
     placeholder: "営業部",
     required: false,
   },
-  // {
-  //   label: "役職",
-  //   name: "position",
-  //   type: "text",
-  //   placeholder: "役職名をご入力ください",
-  //   required: false,
-  // },
   {
     label: "メールアドレス",
     name: "email",
@@ -75,76 +50,93 @@ const formFields: FormField[] = [
     placeholder: "00-0000-0000",
     required: true,
   },
-  // {
-  //   label: "ご検討中のサービス",
-  //   name: "serviceType",
-  //   type: "select",
-  //   options: [
-  //     { value: "", label: "以下から選択してください" },
-  //     { value: "service1", label: "ご検討中のサービス1" },
-  //     { value: "service2", label: "ご検討中のサービス2" },
-  //     { value: "service3", label: "ご検討中のサービス3" },
-  //   ],
-  //   required: true,
-  // },
   {
     label: "お問い合わせ内容",
+    name: "inquiryType",
+    type: "select",
+    options: [
+      { value: "", label: "選択してください" },
+      { value: "service", label: "サービス・商品に関するお問い合わせ" },
+      { value: "price", label: "料金・プランに関するお問い合わせ" },
+      { value: "usage", label: "ご利用方法に関するお問い合わせ" },
+      { value: "other", label: "その他" },
+    ],
+    required: true,
+  },
+  {
+    label: "本文",
     name: "message",
     type: "textarea",
     placeholder: "お問い合わせ内容を入力してください",
     required: true,
   },
-]
+];
 
-const initialFormData: Record<string, string> = {}
+const initialFormData: Record<string, string> = {};
 formFields.forEach((field) => {
-  initialFormData[field.name] = ""
-})
+  initialFormData[field.name] = "";
+});
 
 const ContactForm = () => {
-  const [formData, setFormData] = useState(initialFormData)
-  const [loading, setLoading] = useState(false)
-  const [responseMessage, setResponseMessage] = useState("")
-  const router = useRouter()
+  const [formData, setFormData] = useState(initialFormData);
+  const [loading, setLoading] = useState(false);
+  const [responseMessage, setResponseMessage] = useState("");
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setSelectedFile(e.target.files[0]);
+    }
+  };
+
+  const handleFileButtonClick = () => {
+    fileInputRef.current?.click();
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    setResponseMessage("")
+    e.preventDefault();
+    setLoading(true);
+    setResponseMessage("");
 
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
-      })
+      });
 
       if (res.ok) {
-        router.push("/contact/thanks")
+        router.push("/contact/thanks");
       } else {
-        const data = await res.json()
-        setResponseMessage(data.error || "送信に失敗しました。")
+        const data = await res.json();
+        setResponseMessage(data.error || "送信に失敗しました。");
       }
     } catch (error) {
-      setResponseMessage("エラーが発生しました。")
+      setResponseMessage("エラーが発生しました。");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
-    <article className="w-full md:max-w-[1240px] h-auto mx-auto px-5 md:px-5 pt-16 pb-20 md:pt-[120px] md:pb-[134px]">
+    <article className="w-full md:max-w-[1240px] h-auto mx-auto px-5 md:px-5 pt-0 pb-20 md:pt-0 md:pb-[120px]">
       <div className="w-full">
         <section>
           <p className="text-lg font-semibold ![line-height:160%] tracking-[0.03em] whitespace-pre-line">
+            <span className="text-accentColor">
+              こちらのフォームは個人のお客様専用です。
+            </span>
+            <br />
             必須項目を全てご入力の上「送信ボタン」を押して、フォームを送信してください。
             <br />
             ※フォームマーケティング・セールスはお断りしております。
@@ -155,21 +147,8 @@ const ContactForm = () => {
           {responseMessage && <p className="text-red-500">{responseMessage}</p>}
           <form onSubmit={handleSubmit}>
             {formFields.map((field) => (
-              <div
-                key={field.name}
-                className={`mb-6 md:mb-10 ${
-                  field.name === "lastName" || field.name === "firstName"
-                    ? "md:w-1/2 md:inline-block"
-                    : "w-full"
-                } ${
-                  field.name === "firstName"
-                    ? "md:pl-3"
-                    : field.name === "lastName"
-                    ? "md:pr-3"
-                    : ""
-                }`}
-              >
-                <label className="text-sm md:text-base block font-extrabold mb-1 md:mb-2 ![line-height:200%]">
+              <div key={field.name} className="mb-6 w-full">
+                <label className="text-sm md:text-base block font-semibold mb-1 md:mb-2 ![line-height:200%]">
                   {field.label}{" "}
                   {field.required && (
                     <span className="text-red-500">(必須)</span>
@@ -181,13 +160,23 @@ const ContactForm = () => {
                     name={field.name}
                     value={formData[field.name] || ""}
                     onChange={handleChange}
-                    className="w-full px-6 py-4 bg-bgLight [&>*]:bg-bgLight appearance-none bg-[length:16px_10px] md:bg-[length:22px_10px] bg-[right_1.5rem_center] bg-no-repeat text-base md:text-lg"
+                    className={`w-full px-6 py-4 bg-bgLight [&>*]:bg-bgLight appearance-none bg-[length:16px_10px] md:bg-[length:22px_10px] bg-[right_1.5rem_center] bg-no-repeat text-base md:text-lg rounded-[10px] ${
+                      !formData[field.name] || formData[field.name] === ""
+                        ? "text-[#828282]"
+                        : "text-black"
+                    }`}
                     style={{
-                      backgroundImage: `url("data:image/svg+xml,%3Csvg width='16' height='10' viewBox='0 0 16 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L8 9L15 1' stroke='%23A38758' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg width='16' height='10' viewBox='0 0 16 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L8 9L15 1' stroke='%23FF7C56' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
                     }}
                   >
                     {field.options.map((option) => (
-                      <option key={option.value} value={option.value}>
+                      <option
+                        key={option.value}
+                        value={option.value}
+                        className={
+                          option.value === "" ? "text-[#828282]" : "text-black"
+                        }
+                      >
                         {option.label}
                       </option>
                     ))}
@@ -204,7 +193,7 @@ const ContactForm = () => {
                         placeholder={field.placeholder}
                         required={field.required}
                         rows={1}
-                        className="w-full px-6 py-4 bg-bgLight placeholder:text-[#EFEFEF] placeholder:text-base md:placeholder:text-lg"
+                        className="w-full px-6 py-4 bg-bgLight placeholder:text-[#828282] placeholder:text-base md:placeholder:text-lg rounded-[10px]"
                       />
                     ) : (
                       <input
@@ -214,30 +203,51 @@ const ContactForm = () => {
                         onChange={handleChange}
                         placeholder={field.placeholder}
                         required={field.required}
-                        className="w-full px-6 py-4 bg-bgLight placeholder:text-[#EFEFEF] placeholder:text-base md:placeholder:text-lg ![line-height:170%]"
+                        className="w-full px-6 py-4 bg-bgLight placeholder:text-[#828282] placeholder:text-base md:placeholder:text-lg ![line-height:170%] rounded-[10px]"
                       />
                     )}
                   </>
                 )}
               </div>
             ))}
-            <div className="flex justify-center mt-10 md:mt-20">
+            <div className="flex flex-col items-center gap-4 mt-10 md:mt-20">
+              <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                className="hidden"
+                accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+              />
+              <button
+                type="button"
+                onClick={handleFileButtonClick}
+                className="w-[80vw] max-w-[350px] py-4 px-0 rounded-[30px] border border-accentColor bg-transparent text-lg text-accentColor hover:opacity-70 flex items-center justify-center font-semibold"
+              >
+                ファイルを添付
+              </button>
+              {selectedFile && (
+                <p className="text-sm text-white">{selectedFile.name}</p>
+              )}
+            </div>
+            <div className="flex justify-center mt-10 md:mt-16">
               <SubmitButton loading={loading} />
             </div>
             <p className="text-center ![line-height:160%] text-xs md:text-sm mt-6 md:mt-16 tracking-[0.05em] whitespace-pre-line">
               上記ボタンを押すことで、利用規約および、当社のサービス等に関する情報を提供する目的で、
               <br />
-              〇〇〇〇〇〇〇が送信された個人情報を保管・処理することに同意したものとみなされます。
+              合同会社TOMBOが送信された個人情報を保管・処理することに同意したものとみなされます。
               <br />
               お客様はこれらの情報提供をいつでも停止できます。
               <br />
-              個人情報の開示や削除依頼等のお問い合わせ先、およびお客様の個人情報を尊重して保護するための弊社取り組みについては、プライバシーポリシーをご覧ください。
+              個人情報の開示や削除依頼等のお問い合わせ先、およびお客様の個人情報を尊重して保護するための弊社取り組みについては、
+              <br />
+              プライバシーポリシーをご覧ください。
             </p>
           </form>
         </section>
       </div>
     </article>
-  )
-}
+  );
+};
 
-export default ContactForm
+export default ContactForm;

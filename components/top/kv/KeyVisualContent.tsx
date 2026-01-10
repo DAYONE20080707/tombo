@@ -1,55 +1,36 @@
 // components/ui/frame/KeyVisualContent.tsx
-"use client"
+"use client";
 
-import classNames from "classnames"
-import Image from "next/image"
-import { useState, useEffect } from "react"
+import classNames from "classnames";
+import Image from "next/image";
 
 interface KeyVisualContentProps {
-  className?: string
+  className?: string;
 }
 
 const KeyVisualContent: React.FC<KeyVisualContentProps> = ({ className }) => {
-  const [currentSlide, setCurrentSlide] = useState(0)
-
-  const slides = [
-    { src: "/top/kv/kv_img1.jpg", alt: "KV Image 1" },
-    { src: "/top/kv/kv_img2.jpg", alt: "KV Image 2" },
-    { src: "/top/kv/kv_img3.jpg", alt: "KV Image 3" },
-    { src: "/top/kv/kv_img4.jpg", alt: "KV Image 4" },
-    { src: "/top/kv/kv_img5.jpg", alt: "KV Image 5" },
-  ]
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length)
-    }, 4000) // 4秒ごとに切り替え
-
-    return () => clearInterval(timer)
-  }, [slides.length])
-
   return (
     <div className={classNames("relative w-full", className)}>
-      {slides.map((slide, index) => (
-        <div
-          key={index}
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            index === currentSlide ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <Image
-            src={slide.src}
-            alt={slide.alt}
-            priority={index === 0}
-            fill
-            className="object-cover"
-          />
-          {/* 黒20%のグラデーションオーバーレイ */}
-          {/* <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-black/20"></div> */}
-        </div>
-      ))}
+      {/* SP用画像 */}
+      <Image
+        src="/top/kv/kv_sp.jpg"
+        alt="KV Image 1"
+        priority
+        fill
+        className="object-cover block md:hidden"
+      />
+      {/* PC用画像 */}
+      <Image
+        src="/top/kv/kv.jpg"
+        alt="KV Image 1"
+        priority
+        fill
+        className="object-cover hidden md:block"
+      />
+      {/* 黒20%のグラデーションオーバーレイ */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-black/20"></div>
     </div>
-  )
-}
+  );
+};
 
-export default KeyVisualContent
+export default KeyVisualContent;

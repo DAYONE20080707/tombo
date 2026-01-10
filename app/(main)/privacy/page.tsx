@@ -1,16 +1,20 @@
-import Lowerkv_01 from "@/components/lowerkv/Lowerkv_01";
-import Lowerkv_02 from "@/components/lowerkv/Lowerkv_02";
-import Lowerkv_03 from "@/components/lowerkv/Lowerkv_03";
-import Lowerkv_04 from "@/components/lowerkv/Lowerkv_04";
 import Privacy1 from "@/components/privacy/Privacy_01"
+import PageHeadline from "@/components/ui/frame/PageHeadline"
+import Breadcrumb from "@/components/ui/module/Breadcrumb"
+import Cta_03 from "@/components/ui/module/cta/Cta_03"
 
 // 私たちについて
 const PrivacyPage = () => {
   return (
     <div>
-      
-      <Lowerkv_01 />
+      <div className=" md:max-w-[1240px] mx-auto pt-[100px] md:pt-[150px] px-5">
+        <Breadcrumb mainTitle="プライバシーポリシー" />
+        <div className="mt-10 md:mt-[120px]">
+          <PageHeadline enTitle="プライバシーポリシー" mainTitle="Privacy policy" />
+        </div>
+      </div>
       <Privacy1 />
+      <Cta_03/>
     </div>
   )
 }

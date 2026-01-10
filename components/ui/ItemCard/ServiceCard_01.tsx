@@ -1,18 +1,18 @@
 // components/ui/itemCard/ServiceCard.tsx
-import Image from "next/image"
-import classNames from "classnames"
-import ArrowRightLinkButton from "@/components/ui/button/ArroeRightLinkButton"
+import Image from "next/image";
+import classNames from "classnames";
+import ArrowRightLinkButton from "@/components/ui/button/ArroeRightLinkButton";
 
 interface ServiceCardProps {
-  id: number
-  subTitle: string
-  title: string
-  description: string
-  image: string // 画像パスを受け取る
-  href: string // リンク先のURLを受け取る
-  className?: string // 任意のクラス名を受け取る
-  imageContainerClass?: string // 画像コンテナのクラスを受け取る
-  showButton?: boolean // ボタンの表示を制御するプロパティを追加
+  id: number;
+  subTitle: string;
+  title: string;
+  description: string;
+  image: string; // 画像パスを受け取る
+  href: string; // リンク先のURLを受け取る
+  className?: string; // 任意のクラス名を受け取る
+  imageContainerClass?: string; // 画像コンテナのクラスを受け取る
+  showButton?: boolean; // ボタンの表示を制御するプロパティを追加
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({
@@ -32,9 +32,9 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
         className={classNames(
           {
             "h-[250px] md:h-[400px] ": !className.includes("overlay"),
-            "h-[250px] md:h-[600px]": className.includes("overlay"),
+            "h-[250px] md:h-[500px]": className.includes("overlay"),
           },
-          "w-full aspect-[1/1] relative rounded-[30px]",
+          "w-full aspect-[580/500] relative rounded-[10px]",
           imageContainerClass
         )}
       >
@@ -43,36 +43,46 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           src={image}
           alt={`solution ${id}`}
           objectFit="cover"
-          className="block object-top rounded-[30px]"
+          className="block object-top rounded-[10px]"
           priority
         />
       </div>
 
       <div
         className={classNames("space-y-3 ", {
-          "w-full md:h-[600px]  rounded-[30px] absolute inset-0 flex flex-col justify-center items-center bg-black/50 text-white":
+          "w-full md:h-[500px]  rounded-[10px] absolute inset-0 flex flex-col justify-center items-center text-white":
             className.includes("overlay"),
+          "bg-black/20":
+            className.includes("overlay") && title !== "coming soon...",
+          "bg-[#bdbdbd]/80":
+            className.includes("overlay") && title === "coming soon...",
           "relative text-black ": !className.includes("overlay"),
         })}
       >
         <div
-          className={classNames("font-bold text-[16px] font-poppins text-left text-accentColor ", {
-            "text-white": className.includes("overlay"),
-            "text-accentColor": !className.includes("overlay"),
-          })}
+          className={classNames(
+            "font-bold text-[16px] font-poppins text-left text-accentColor ",
+            {
+              "text-white": className.includes("overlay"),
+              "text-accentColor": !className.includes("overlay"),
+            }
+          )}
         >
           {subTitle}
         </div>
         <div
-          className={classNames("font-medium text-[22px] font-poppins text-left  ", {
-            "text-white": className.includes("overlay"),
-            "text-baseColor": !className.includes("overlay"),
-          })}
+          className={classNames(
+            "font-medium text-[22px] font-poppins text-left  ",
+            {
+              "text-white": className.includes("overlay"),
+              "text-baseColor": !className.includes("overlay"),
+            }
+          )}
         >
           {title}
         </div>
         <div
-          className={classNames("font-light",{
+          className={classNames("font-light whitespace-pre-line text-center", {
             "text-white  px-10 md:px-20": className.includes("overlay"),
             "text-baseColor": !className.includes("overlay"),
           })}
@@ -91,7 +101,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ServiceCard
+export default ServiceCard;
