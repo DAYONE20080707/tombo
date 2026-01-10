@@ -91,9 +91,10 @@ const Blog_04 = ({ limit = 6 }: BlogProps) => {
           <>
             <div className="mt-10 md:mt-0 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               {contents.map((post) => (
-                <div
+                <Link
+                  href={`/blog/${post.id}`}
                   key={post.id}
-                  className="w-full flex flex-col md:flex-row gap-4 border-b border-white py-4"
+                  className="w-full flex flex-col md:flex-row gap-4 border-b border-white py-4 group cursor-pointer"
                 >
                   <div className="md:w-[180px] md:h-[130px] flex-shrink-0">
                     {post.image && (
@@ -102,7 +103,7 @@ const Blog_04 = ({ limit = 6 }: BlogProps) => {
                         alt={post.title ?? "ブログサムネイル"}
                         width={180}
                         height={130}
-                        className="w-full h-full rounded-[15px] object-cover"
+                        className="w-full h-full rounded-[15px] object-cover transition-transform group-hover:scale-105"
                       />
                     )}
                   </div>
@@ -125,14 +126,14 @@ const Blog_04 = ({ limit = 6 }: BlogProps) => {
                         </span>
                       </div>
                     )}
-                    <p className="text-white text-base md:text-lg font-normal line-clamp-2 leading-[160%]">
+                    <p className="text-white text-base md:text-lg font-normal line-clamp-2 leading-[160%] group-hover:text-accentColor transition-colors">
                       {post.title}
                     </p>
                     {/* <p className="text-white text-xs line-clamp-2">
                       {post.description}
                     </p> */}
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
             <div className="mt-10 md:mt-16 flex justify-center">

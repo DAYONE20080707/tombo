@@ -3,6 +3,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 // import { microcms } from "@/lib/microcms";
 import { Cms } from "@/types";
@@ -86,7 +87,7 @@ const Case_01 = ({ limit = 3 }: CaseProps) => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-x-10">
             {contents.map((post) => (
-              <div key={post.id} className="w-full">
+              <Link href={`/cases/${post.id}`} key={post.id} className="w-full group cursor-pointer">
                 <div className="w-full h-[250px] mt-5 md:mt-0 rounded-t-2xl">
                   {post.image && (
                     <Image
@@ -94,12 +95,12 @@ const Case_01 = ({ limit = 3 }: CaseProps) => {
                       alt={post.title ?? "導入事例サムネイル"}
                       width={370}
                       height={223}
-                      className="w-full h-full rounded-[10px] object-cover"
+                      className="w-full h-full rounded-[10px] object-cover transition-transform group-hover:scale-105"
                     />
                   )}
                 </div>
                 <div className="mt-6">
-                  <p className="text-lg font-bold break-words md:min-h-14">
+                  <p className="text-lg font-bold break-words md:min-h-14 group-hover:text-accentColor transition-colors">
                     {post.title}
                   </p>
                   <p className="mt-2 text-[#5f5f5f] text-xs">
@@ -108,7 +109,7 @@ const Case_01 = ({ limit = 3 }: CaseProps) => {
                       : ""}
                   </p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}
