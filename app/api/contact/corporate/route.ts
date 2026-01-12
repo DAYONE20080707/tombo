@@ -37,7 +37,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // Nodemailer の設定
+    // Nodemailer の設定（タイムアウト設定を追加）
     const transporter = nodemailer.createTransport({
       host: EMAIL_HOST,
       port: Number(EMAIL_PORT),
@@ -46,6 +46,9 @@ export async function POST(req: Request) {
         user: EMAIL_USER,
         pass: EMAIL_PASS,
       },
+      connectionTimeout: 10000, // 接続タイムアウト: 10秒
+      greetingTimeout: 10000, // グリーティングタイムアウト: 10秒
+      socketTimeout: 10000, // ソケットタイムアウト: 10秒
     });
 
     // メール本文を組み立てる
@@ -96,11 +99,17 @@ export async function POST(req: Request) {
       replyTo: EMAIL_USER,
     };
 
-    // 2通のメールを並列送信
-    await Promise.all([
+    // 2通のメールを並列送信（30秒のタイムアウト付き）
+    const sendMailPromise = Promise.all([
       transporter.sendMail(adminMailOptions),
       transporter.sendMail(userMailOptions),
     ]);
+
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("メール送信がタイムアウトしました")), 30000)
+    );
+
+    await Promise.race([sendMailPromise, timeoutPromise]);
 
     return NextResponse.json(
       { message: "メールが正常に送信されました。" },

@@ -134,21 +134,19 @@ const ContactCorporateForm = () => {
     setResponseMessage("");
 
     try {
-      const res = await fetch("/api/contact/corporate", {
+      // すぐにthanksページに遷移
+      router.push("/contact/corporate/thanks");
+
+      // バックグラウンドでメール送信（結果を待たない）
+      fetch("/api/contact/corporate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
+      }).catch((error) => {
+        console.error("メール送信エラー:", error);
       });
-
-      if (res.ok) {
-        router.push("/contact/corporate/thanks");
-      } else {
-        const data = await res.json();
-        setResponseMessage(data.error || "送信に失敗しました。");
-      }
     } catch (error) {
       setResponseMessage("エラーが発生しました。");
-    } finally {
       setLoading(false);
     }
   };
@@ -218,7 +216,7 @@ const ContactCorporateForm = () => {
                         placeholder={field.placeholder}
                         required={field.required}
                         rows={1}
-                        className="w-full px-6 py-4 bg-bgLight placeholder:text-[#828282] placeholder:text-base md:placeholder:text-lg rounded-[10px]"
+                        className="w-full px-6 py-4 bg-bgLight text-baseColor placeholder:text-[#828282] placeholder:text-base md:placeholder:text-lg rounded-[10px]"
                       />
                     ) : (
                       <input
@@ -228,7 +226,7 @@ const ContactCorporateForm = () => {
                         onChange={handleChange}
                         placeholder={field.placeholder}
                         required={field.required}
-                        className="w-full px-6 py-4 bg-bgLight placeholder:text-[#828282] placeholder:text-base md:placeholder:text-lg ![line-height:170%] rounded-[10px]"
+                        className="w-full px-6 py-4 bg-bgLight text-baseColor placeholder:text-[#828282] placeholder:text-base md:placeholder:text-lg ![line-height:170%] rounded-[10px]"
                       />
                     )}
                   </>

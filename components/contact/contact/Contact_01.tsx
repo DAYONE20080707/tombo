@@ -3,6 +3,7 @@
 import { useState } from "react";
 import React from "react";
 import { useRouter } from "next/navigation";
+import { Paperclip } from "lucide-react";
 import SubmitButton from "@/components/ui/button/SubmitButton";
 
 interface FormField {
@@ -95,7 +96,22 @@ const ContactForm = () => {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setSelectedFile(e.target.files[0]);
+      const file = e.target.files[0];
+      const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+
+      if (file.size > MAX_FILE_SIZE) {
+        setResponseMessage(
+          "ファイルサイズは5MB以下にしてください。"
+        );
+        setSelectedFile(null);
+        if (fileInputRef.current) {
+          fileInputRef.current.value = "";
+        }
+        return;
+      }
+
+      setSelectedFile(file);
+      setResponseMessage(""); // エラーメッセージをクリア
     }
   };
 
@@ -109,21 +125,30 @@ const ContactForm = () => {
     setResponseMessage("");
 
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+      const formDataToSend = new FormData();
+
+      // テキストフィールドを追加
+      Object.keys(formData).forEach((key) => {
+        formDataToSend.append(key, formData[key]);
       });
 
-      if (res.ok) {
-        router.push("/contact/thanks");
-      } else {
-        const data = await res.json();
-        setResponseMessage(data.error || "送信に失敗しました。");
+      // ファイルを追加（存在する場合）
+      if (selectedFile) {
+        formDataToSend.append("file", selectedFile);
       }
+
+      // すぐにthanksページに遷移
+      router.push("/contact/thanks");
+
+      // バックグラウンドでメール送信（結果を待たない）
+      fetch("/api/contact", {
+        method: "POST",
+        body: formDataToSend,
+      }).catch((error) => {
+        console.error("メール送信エラー:", error);
+      });
     } catch (error) {
       setResponseMessage("エラーが発生しました。");
-    } finally {
       setLoading(false);
     }
   };
@@ -193,7 +218,7 @@ const ContactForm = () => {
                         placeholder={field.placeholder}
                         required={field.required}
                         rows={1}
-                        className="w-full px-6 py-4 bg-bgLight placeholder:text-[#828282] placeholder:text-base md:placeholder:text-lg rounded-[10px]"
+                        className="w-full px-6 py-4 bg-bgLight text-baseColor placeholder:text-[#828282] placeholder:text-base md:placeholder:text-lg rounded-[10px]"
                       />
                     ) : (
                       <input
@@ -203,7 +228,7 @@ const ContactForm = () => {
                         onChange={handleChange}
                         placeholder={field.placeholder}
                         required={field.required}
-                        className="w-full px-6 py-4 bg-bgLight placeholder:text-[#828282] placeholder:text-base md:placeholder:text-lg ![line-height:170%] rounded-[10px]"
+                        className="w-full px-6 py-4 bg-bgLight text-baseColor placeholder:text-[#828282] placeholder:text-base md:placeholder:text-lg ![line-height:170%] rounded-[10px]"
                       />
                     )}
                   </>
@@ -226,7 +251,10 @@ const ContactForm = () => {
                 ファイルを添付
               </button>
               {selectedFile && (
-                <p className="text-sm text-white">{selectedFile.name}</p>
+                <div className="flex items-center gap-2 text-sm text-baseColor">
+                  <Paperclip className="w-4 h-4 text-white" />
+                  <p className=" text-white">{selectedFile.name}</p>
+                </div>
               )}
             </div>
             <div className="flex justify-center mt-10 md:mt-16">

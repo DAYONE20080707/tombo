@@ -7,15 +7,26 @@ const { EMAIL_HOST, EMAIL_PORT, EMAIL_USER, EMAIL_PASS, EMAIL_TO } =
 
 export async function POST(req: Request) {
   try {
-    const {
-      inquiryType = "",
-      department = "",
-      lastName,
-      firstName,
-      email,
-      phone,
-      message,
-    } = await req.json();
+    const formData = await req.formData();
+
+    // FormDataからフィールドを取得
+    const inquiryType = (formData.get("inquiryType") as string) || "";
+    const department = (formData.get("department") as string) || "";
+    const lastName = formData.get("lastName") as string;
+    const firstName = formData.get("firstName") as string;
+    const email = formData.get("email") as string;
+    const phone = formData.get("phone") as string;
+    const message = formData.get("message") as string;
+    const file = formData.get("file") as File | null;
+
+    // ファイルサイズの制限（5MB）
+    const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+    if (file && file.size > MAX_FILE_SIZE) {
+      return NextResponse.json(
+        { error: "ファイルサイズは5MB以下にしてください。" },
+        { status: 400 }
+      );
+    }
 
     // 必須項目のバリデーション（今回のフォーム構成に合わせる）
     const requiredFields = [
@@ -33,7 +44,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // Nodemailer の設定
+    // Nodemailer の設定（タイムアウト設定を追加）
     const transporter = nodemailer.createTransport({
       host: EMAIL_HOST,
       port: Number(EMAIL_PORT),
@@ -42,6 +53,9 @@ export async function POST(req: Request) {
         user: EMAIL_USER,
         pass: EMAIL_PASS,
       },
+      connectionTimeout: 10000, // 接続タイムアウト: 10秒
+      greetingTimeout: 10000, // グリーティングタイムアウト: 10秒
+      socketTimeout: 10000, // ソケットタイムアウト: 10秒
     });
 
     // メール本文を組み立てる
@@ -63,7 +77,20 @@ export async function POST(req: Request) {
     emailBody += `名: ${firstName}\n`;
     emailBody += `メールアドレス: ${email}\n`;
     emailBody += `電話番号: ${phone}\n`;
+    if (file && file.size > 0) {
+      emailBody += `添付ファイル: ${file.name}\n`;
+    }
     emailBody += `\n本文:\n${message}\n`;
+
+    // ファイルの添付処理
+    let attachments: any[] = [];
+    if (file && file.size > 0) {
+      const buffer = Buffer.from(await file.arrayBuffer());
+      attachments.push({
+        filename: file.name,
+        content: buffer,
+      });
+    }
 
     // ① 管理者宛のメール
     const adminMailOptions = {
@@ -72,6 +99,7 @@ export async function POST(req: Request) {
       subject: "【お問い合わせ】新しいメッセージが届きました",
       text: emailBody,
       replyTo: email,
+      attachments: attachments,
     };
 
     // ② ユーザー宛の確認メール
@@ -88,11 +116,17 @@ export async function POST(req: Request) {
       replyTo: EMAIL_USER,
     };
 
-    // 2通のメールを並列送信
-    await Promise.all([
+    // 2通のメールを並列送信（30秒のタイムアウト付き）
+    const sendMailPromise = Promise.all([
       transporter.sendMail(adminMailOptions),
       transporter.sendMail(userMailOptions),
     ]);
+
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("メール送信がタイムアウトしました")), 30000)
+    );
+
+    await Promise.race([sendMailPromise, timeoutPromise]);
 
     return NextResponse.json(
       { message: "メールが正常に送信されました。" },
