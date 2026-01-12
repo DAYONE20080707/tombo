@@ -1,17 +1,17 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import React from "react";
-import { useRouter } from "next/navigation";
-import SubmitButton from "@/components/ui/button/SubmitButton";
+import { useState } from "react"
+import React from "react"
+import { useRouter } from "next/navigation"
+import SubmitButton from "@/components/ui/button/SubmitButton"
 
 interface FormField {
-  label: string;
-  name: string;
-  type: "text" | "email" | "tel" | "textarea" | "select";
-  placeholder?: string;
-  required: boolean;
-  options?: { value: string; label: string }[];
+  label: string
+  name: string
+  type: "text" | "email" | "tel" | "textarea" | "select"
+  placeholder?: string
+  required: boolean
+  options?: { value: string; label: string }[]
 }
 
 const formFields: FormField[] = [
@@ -77,13 +77,9 @@ const formFields: FormField[] = [
     type: "select",
     options: [
       { value: "", label: "選択してください" },
-      { value: "service", label: "サービス・製品に関するお問い合わせ" },
-      { value: "estimate", label: "見積もり・価格に関するお問い合わせ" },
-      {
-        value: "partnership",
-        label: "パートナーシップ・提携に関するお問い合わせ",
-      },
-      { value: "recruit", label: "採用に関するお問い合わせ" },
+      { value: "service01", label: "人事コンサルティングについて" },
+      { value: "service02", label: "TOMBO Tech Scouterについて" },
+      { value: "service03", label: "人事限定コミュニティの運営について" },
       { value: "other", label: "その他" },
     ],
     required: true,
@@ -95,47 +91,47 @@ const formFields: FormField[] = [
     placeholder: "お問い合わせ内容を入力してください",
     required: true,
   },
-];
+]
 
-const initialFormData: Record<string, string> = {};
+const initialFormData: Record<string, string> = {}
 formFields.forEach((field) => {
-  initialFormData[field.name] = "";
-});
+  initialFormData[field.name] = ""
+})
 
 const ContactCorporateForm = () => {
-  const [formData, setFormData] = useState(initialFormData);
-  const [loading, setLoading] = useState(false);
-  const [responseMessage, setResponseMessage] = useState("");
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const fileInputRef = React.useRef<HTMLInputElement>(null);
-  const router = useRouter();
+  const [formData, setFormData] = useState(initialFormData)
+  const [loading, setLoading] = useState(false)
+  const [responseMessage, setResponseMessage] = useState("")
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
+  const fileInputRef = React.useRef<HTMLInputElement>(null)
+  const router = useRouter()
 
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setSelectedFile(e.target.files[0]);
+      setSelectedFile(e.target.files[0])
     }
-  };
+  }
 
   const handleFileButtonClick = () => {
-    fileInputRef.current?.click();
-  };
+    fileInputRef.current?.click()
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setResponseMessage("");
+    e.preventDefault()
+    setLoading(true)
+    setResponseMessage("")
 
     try {
       // すぐにthanksページに遷移
-      router.push("/contact/corporate/thanks");
+      router.push("/contact/corporate/thanks")
 
       // バックグラウンドでメール送信（結果を待たない）
       fetch("/api/contact/corporate", {
@@ -143,13 +139,13 @@ const ContactCorporateForm = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       }).catch((error) => {
-        console.error("メール送信エラー:", error);
-      });
+        console.error("メール送信エラー:", error)
+      })
     } catch (error) {
-      setResponseMessage("エラーが発生しました。");
-      setLoading(false);
+      setResponseMessage("エラーが発生しました。")
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <article className="w-full md:max-w-[1240px] h-auto mx-auto px-5 md:px-5 pt-0 pb-20 md:pt-0 md:pb-[120px]">
@@ -251,7 +247,7 @@ const ContactCorporateForm = () => {
         </section>
       </div>
     </article>
-  );
-};
+  )
+}
 
-export default ContactCorporateForm;
+export default ContactCorporateForm

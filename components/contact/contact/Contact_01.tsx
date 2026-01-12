@@ -57,9 +57,9 @@ const formFields: FormField[] = [
     type: "select",
     options: [
       { value: "", label: "選択してください" },
-      { value: "service", label: "サービス・商品に関するお問い合わせ" },
-      { value: "price", label: "料金・プランに関するお問い合わせ" },
-      { value: "usage", label: "ご利用方法に関するお問い合わせ" },
+      { value: "service01", label: "人事コンサルティングについて" },
+      { value: "service02", label: "TOMBO Tech Scouterについて" },
+      { value: "service03", label: "人事限定コミュニティの運営について" },
       { value: "other", label: "その他" },
     ],
     required: true,
