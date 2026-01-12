@@ -1,7 +1,7 @@
 /* カスタムCssのスタイル */
 
 .content > p span[class='test'] {
-  color: rgb(255, 0, 0);
+  color: rgb(255, 255, 255);
 }
 
 .content > ul li span[class='info-box'] {
@@ -9,24 +9,24 @@
   font-weight: bold;
 }
 
-/* .content > ul:has(li span[class='info-box']) {
+.content > ul:has(li span[class='info-box']) {
   background-color: #edebeb;
   padding: 20px;
   list-style-type: none;
   position: relative;
-} */
+}
 
 /* 左上の赤い三角（矢印） */
-/* .content > ul:has(li span[class='info-box'])::before {
+.content > ul:has(li span[class='info-box'])::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 0;
   height: 0;
-  border-top: 20px solid #b80000;
+  border-top: 20px solid #ffffff;
   border-right: 20px solid transparent;
-} */
+}
 
 /* ブログ詳細用のスタイル */
 .content h1 {
@@ -41,6 +41,15 @@
   margin-top: 60px;
   margin-bottom: 20px;
   line-height: 1.5;
+  padding-left: 25px;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #f8f8f8 0px,
+    #f8f8f8 2px,
+    #ffffff 2px,
+    #ffffff 4px
+  );
+  border-left: 8px solid #ffffff;
 }
 
 .content h3 {
@@ -50,9 +59,10 @@
   margin-bottom: 20px;
   position: relative;
   padding-bottom: 14px;
+  padding-left: 12px;
 }
 
-/* .content h3::after {
+.content h3::after {
   content: '';
   position: absolute;
   left: 0;
@@ -61,13 +71,13 @@
   height: 4px;
   background-image: repeating-linear-gradient(
     -45deg,
-    #b80000,
-    #b80000,
+    #ffffff,
+    #ffffff,
     1px,
     transparent 2px,
     transparent 3px
   );
-} */
+}
 
 .content h4 {
   font-size: 18px;
@@ -91,15 +101,25 @@
 
 .content a {
   font-size: 16px;
-  color: #1ABCEF;
+  color: blue;
+}
+
+.content figure {
+  margin: 20px 0;
+}
+
+.content figure img {
+  display: inline-block;
 }
 
 .content img {
-  width: 100%;
+  max-width: 100%;
+  height: auto;
 }
 
 .content a img {
-  width: 100%;
+  max-width: 100%;
+  height: auto;
 }
 
 .content a img:hover {
@@ -131,7 +151,7 @@
   text-decoration: none;
   font-weight: bold;
   padding: 0 2px;
-  background: linear-gradient(transparent 60%, #FF7C56 60%);
+  background: linear-gradient(transparent 60%, #fdf39f 60%);
 }
 
 .content u > * {
@@ -162,11 +182,11 @@
 }
 
 .content tr:nth-child(even) {
-  /* background-color: #f9f9f9; */
+  background-color: #f9f9f9;
 }
 
 .content tr:hover {
-  /* background-color: #e0e0e0; */
+  background-color: #e0e0e0;
 }
 
 /* コードブロックのスタイル */
@@ -199,7 +219,6 @@
   .content h3 {
     font-size: 16px;
     font-weight: bold;
-    margin-top: 40px;
   }
 
   .content h4 {

@@ -188,7 +188,7 @@ const CasesDetail_01 = ({ params }: CasesDetailProps) => {
           <div className="flex justify-between items-center relative">
             {prevPost ? (
               <Link
-                href={`/cases/${prevPost.id}`}
+                href={`/case/${prevPost.id}`}
                 className="group flex items-center text-white hover:text-gray-600 transition-colors duration-200 w-[calc(50%-20px)] gap-6"
               >
                 <NavigationArrow direction="left" className="text-white" />

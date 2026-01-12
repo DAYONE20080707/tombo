@@ -122,7 +122,7 @@ const Cases_01 = ({ limit = 3 }: CasesProps) => {
               {displayContents.map((post) => (
                 <Link
                   key={post.id}
-                  href={`/cases/${post.id}`}
+                  href={`/case/${post.id}`}
                   className="w-full hover:opacity-90 transition-opacity"
                 >
                   <div className="w-full">
@@ -173,5 +173,3 @@ const Cases_01 = ({ limit = 3 }: CasesProps) => {
 };
 
 export default Cases_01;
-
-

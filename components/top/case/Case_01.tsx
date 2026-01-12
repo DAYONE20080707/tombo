@@ -87,7 +87,7 @@ const Case_01 = ({ limit = 3 }: CaseProps) => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-x-10">
             {contents.map((post) => (
-              <Link href={`/cases/${post.id}`} key={post.id} className="w-full group cursor-pointer">
+              <Link href={`/case/${post.id}`} key={post.id} className="w-full group cursor-pointer">
                 <div className="w-full h-[250px] mt-5 md:mt-0 rounded-t-2xl">
                   {post.image && (
                     <Image
@@ -114,7 +114,7 @@ const Case_01 = ({ limit = 3 }: CaseProps) => {
           </div>
         )}
         <div className="flex justify-center mt-16">
-          <MoreButton variant="accent" />
+          <MoreButton href="/case" variant="accent" />
         </div>
       </section>
     </SectionContent>
